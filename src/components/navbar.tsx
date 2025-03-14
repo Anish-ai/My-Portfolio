@@ -109,26 +109,36 @@ export default function Navbar() {
           className="md:hidden bg-black/95 backdrop-blur-md border-b border-violet-900/20"
         >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <ScrollLink
+          // In your Navbar component, modify the nav item rendering like this:
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.name}
-                to={item.to}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="text-gray-300 hover:text-white py-2 cursor-pointer transition-colors relative"
-                onClick={() => setIsOpen(false)}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="relative group"
+                whileHover="hover"
               >
-                {item.name}
-                {/* Hover underline effect for mobile */}
-                <motion.span
-                  className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-violet-400 to-fuchsia-500"
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </ScrollLink>
+                <ScrollLink
+                  to={item.to}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  className="text-gray-300 hover:text-white cursor-pointer transition-colors relative inline-block"
+                >
+                  {item.name}
+                  {/* Hover underline effect */}
+                  <motion.span
+                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-violet-400 to-fuchsia-500"
+                    initial={{ width: 0 }}
+                    variants={{
+                      hover: { width: "100%" }
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  />
+                </ScrollLink>
+              </motion.div>
             ))}
           </div>
         </motion.div>

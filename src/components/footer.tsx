@@ -7,7 +7,7 @@ import { personalInfo } from "@/data/personal-info"
 export default function Footer() {
   // Function to handle email click
   const handleEmailClick = () => {
-    window.location.href = `mailto:${personalInfo.email}?subject=Let's Work Together`;
+    window.location.href = "http://mailto:aniskum59431@gmail.com/";
   };
 
   return (
