@@ -179,7 +179,7 @@ export const skills: SkillType[] = [
   },
   {
     name: "MySQL",
-    icon: "/stack/Mysql.svg",
+    icon: "/stack/MySQL.svg",
     proficiency: "Advanced",
     percentage: 83,
     description: "Relational database management with MySQL.",
