@@ -109,7 +109,7 @@ export default function Navbar() {
           className="md:hidden bg-black/95 backdrop-blur-md border-b border-violet-900/20"
         >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-          // In your Navbar component, modify the nav item rendering like this:
+          {/* In your Navbar component, modify the nav item rendering like this: */}
             {navItems.map((item, index) => (
               <motion.div
                 key={item.name}

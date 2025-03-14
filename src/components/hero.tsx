@@ -41,11 +41,6 @@ const Particle = ({
   ]
 
   const color = colors[index % colors.length]
-
-  // Calculate position influenced by mouse
-  const x = mousePosition.x * intensity
-  const y = mousePosition.y * intensity
-
   return (
     <motion.div
       className="absolute rounded-full pointer-events-none"
@@ -88,7 +83,7 @@ export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [normalizedMousePosition, setNormalizedMousePosition] = useState({ x: 0, y: 0 })
   const profileImageRef = useRef(null)
-  const [attractionStrength, setAttractionStrength] = useState(1)
+  const [attractionStrength] = useState(1)
 
   // Handle mouse movement for interactive particles
   const handleMouseMove = (e: MouseEvent) => {
