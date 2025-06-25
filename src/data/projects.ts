@@ -7,7 +7,6 @@ export const projects: ProjectType[] = [
     skills: ["React Native", "Firebase", "Microsoft Azure", "Expo", "Vercel"],
     links: {
       live: "https://oneattend.vercel.app/",
-      github: "https://github.com/username/oneiitp",
       playstore: "https://play.google.com/store/apps/details?id=com.oneiitp.app",
       appstore: "https://apps.apple.com/in/app/oneiitp/id6742688561"
     },
@@ -17,6 +16,18 @@ export const projects: ProjectType[] = [
   },
   {
     id: 2,
+    title: "Mock Interview AI",
+    skills: ["Next.js", "Tailwind CSS", "TypeScript", "Gemini API", "Murf AI", "WebRTC", "face-api.js"],
+    links: {
+      github: "https://github.com/Anish-ai/AI-Interviewer",
+      live: "https://mockinterviewai.vercel.app/"
+    },
+    description:
+      "Mock Interview AI is an advanced browser-based platform that simulates realistic interviews using voice-based interaction, facial expression tracking, and dynamic and detailed feedback to help students improve communication skills and confidence.",
+    thumbnail: "/stack/mockinterview.png",
+  },
+  {
+    id: 3,
     title: "WinRegi",
     skills: ["Python", "PyQt", "SQLite", "Windows API", "Registry", "NLP", "Machine Learning"],
     links: {
@@ -27,11 +38,10 @@ export const projects: ProjectType[] = [
     thumbnail: "/stack/winregi.png",
   },
   {
-    id: 3,
+    id: 4,
     title: "CollabNest",
     skills: ["Next.js", "TypeScript", "Prisma", "Firebase", "Node.js", "PostgreSQL", "WebSockets", "Tailwind CSS"],
     links: {
-      live: "#",
       github: "https://github.com/username/collabnest",
     },
     description:
@@ -40,7 +50,7 @@ export const projects: ProjectType[] = [
     status: "In Progress"
   },
   {
-    id: 4,
+    id: 5,
     title: "VaultX",
     skills: ["Next.js", "Node.js", "Express.js", "PostgreSQL", "Prisma", "Tailwind CSS", "JWT", "Nodemailer"],
     links: {
@@ -49,17 +59,5 @@ export const projects: ProjectType[] = [
     description:
       "A secure digital banking platform with MFA, asset transfers, investment management, and loan applications. Features JWT authentication, OTP verification, and real-time notifications. Built with Next.js, Express.js, and PostgreSQL for scalability and security.",
     thumbnail: "/stack/vaultx.png",
-  },
-  {
-    id: 5,
-    title: "MessIITP",
-    skills: ["React Native", "Expo", "JWT", "MySQL", "Node.js", "Chart.js", "Render", "phpMyAdmin"],
-    links: {
-      github: "https://github.com/username/messiitp",
-      live: "#"
-    },
-    description:
-      "Mess management app for IIT Patna with real-time meal updates, JWT-based role-based access, meal rating system with leaderboards (Chart.js), and local notifications for meal reminders. Enhances dining experience with user feedback and transparency.",
-    thumbnail: "/stack/messiitp.png",
   }
 ];
