@@ -228,7 +228,7 @@ export default function Skills() {
                   boxShadow: "0 0 25px rgba(138, 43, 226, 0.6)",
                   zIndex: 10,
                 }}
-                className="skill-item flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-900/50 backdrop-blur-md rounded-xl p-2 sm:p-3 md:p-4 border border-gray-800 hover:border-violet-500 transition-all"
+                className="skill-item flex flex-col items-center justify-center w-16 h-20 sm:w-20 sm:h-24 md:w-24 md:h-28 bg-gray-900/50 backdrop-blur-md rounded-xl p-2 sm:p-3 md:p-4 border border-gray-800 hover:border-violet-500 transition-all"
                 onHoverStart={() => setHoveredSkill(skill.name)}
                 onHoverEnd={() => setHoveredSkill(null)}
               >
@@ -251,63 +251,61 @@ export default function Skills() {
           </div>
         </motion.div>
 
-        {/* Skills grid with percentage bars - now responsive */}
-        <div className="mt-8 md:mt-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6">
-          {sortedSkills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              viewport={{ once: true }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(138, 43, 226, 0.4)",
-                zIndex: 10,
-              }}
-              className="skill-item flex flex-col p-3 md:p-4 bg-gray-900/50 backdrop-blur-md rounded-lg border border-gray-800 hover:border-violet-500 transition-all group"
-              onHoverStart={() => setHoveredSkill(skill.name)}
-              onHoverEnd={() => setHoveredSkill(null)}
-            >
-              <div className="flex items-center mb-2 md:mb-3">
-                <div className="relative w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3 flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Image
-                    src={skill.icon || "/placeholder.svg"}
-                    alt={skill.name}
-                    width={windowSize.width < 768 ? 32 : 40}
-                    height={windowSize.width < 768 ? 32 : 40}
-                    className="object-contain"
-                    onError={(e) => {
-                      console.warn(`Failed to load icon for ${skill.name}`);
-                      e.currentTarget.src = "/stack/fallback.svg";
-                    }}
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xs md:text-sm font-medium line-clamp-1">{skill.name}</h3>
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs text-gray-400">{skill.proficiency}</p>
-                    <p className="text-xs font-bold text-violet-400">{skill.percentage}%</p>
-                  </div>
-                </div>
-              </div>
+{/* Compact Skill Cloud by Proficiency */}
+        <div className="mt-8 md:mt-16 space-y-8 md:space-y-12">
+          {(["Advanced", "Intermediate", "Beginner"] as const).map((level) => {
+             const levelSkills = sortedSkills.filter(s => s.proficiency === level);
+             if (levelSkills.length === 0) return null;
 
-              <div className="mt-1 w-full bg-gray-800 rounded-full h-1.5 md:h-2 overflow-hidden">
-                <motion.div
-                  className={`h-full rounded-full ${skill.percentage > 80
-                    ? "bg-gradient-to-r from-violet-500 to-fuchsia-500"
-                    : skill.percentage > 60
-                      ? "bg-gradient-to-r from-violet-500 to-blue-500"
-                      : "bg-gradient-to-r from-blue-500 to-cyan-500"
-                    }`}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.percentage}%` }}
-                  transition={{ duration: 1, delay: 0.2 }}
+             return (
+              <div key={level} className="text-center">
+                <motion.h3 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                />
+                  className="inline-block text-sm md:text-base font-semibold text-gray-400 mb-4 md:mb-6 px-4 py-1 border-b border-gray-800"
+                >
+                  {level}
+                </motion.h3>
+                
+                <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
+                  {levelSkills.map((skill, index) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2, delay: index * 0.03 }}
+                      viewport={{ once: true }}
+                      whileHover={{
+                        scale: 1.1,
+                        backgroundColor: "rgba(139, 92, 246, 0.1)",
+                        borderColor: "rgba(139, 92, 246, 0.5)",
+                        y: -5
+                      }}
+                      className="group relative flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gray-900/40 backdrop-blur-sm border border-gray-800 rounded-full cursor-pointer transition-colors"
+                      onHoverStart={() => setHoveredSkill(skill.name)}
+                      onHoverEnd={() => setHoveredSkill(null)}
+                    >
+                       <div className="relative w-4 h-4 md:w-5 md:h-5">
+                        <Image
+                          src={skill.icon || "/placeholder.svg"}
+                          alt={skill.name}
+                          fill
+                          className="object-contain"
+                          onError={(e) => {
+                             e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                      <span className="text-sm text-gray-300 font-medium group-hover:text-white transition-colors">
+                        {skill.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </motion.div>
-          ))}
+             )
+          })}
         </div>
 
         {/* Skill detail popup - Now responsive and repositions to stay in viewport */}
