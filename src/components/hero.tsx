@@ -84,6 +84,7 @@ export default function Hero() {
   const [normalizedMousePosition, setNormalizedMousePosition] = useState({ x: 0, y: 0 })
   const profileImageRef = useRef(null)
   const [attractionStrength] = useState(1)
+  const [isMounted, setIsMounted] = useState(false)
 
   // Handle mouse movement for interactive particles
   const handleMouseMove = (e: MouseEvent) => {
@@ -119,6 +120,9 @@ export default function Hero() {
   }
 
   useEffect(() => {
+    // Set mounted to true after first render on client
+    setIsMounted(true)
+
     if (typedEl.current) {
       const typed = new Typed(typedEl.current, {
         strings: personalInfo.roles,
@@ -185,11 +189,13 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Particles background */}
-      <div className="absolute inset-0 z-0">
-        {particles}
-        {mouseParticle}
-      </div>
+      {/* Particles background - only render on client to avoid hydration errors */}
+      {isMounted && (
+        <div className="absolute inset-0 z-0">
+          {particles}
+          {mouseParticle}
+        </div>
+      )}
 
       {/* Animated gradient background */}
       <motion.div
@@ -322,7 +328,7 @@ export default function Hero() {
             className="md:w-1/2 flex justify-center"
             style={{
               perspective: "1000px",
-              transform: `translate(${normalizedMousePosition.x * -10}px, ${normalizedMousePosition.y * -10}px)`,
+              transform: isMounted ? `translate(${normalizedMousePosition.x * -10}px, ${normalizedMousePosition.y * -10}px)` : "translate(0px, 0px)",
               transition: "transform 0.1s ease-out",
             }}
           >
@@ -339,7 +345,7 @@ export default function Hero() {
                   ease: "linear",
                 }}
                 style={{
-                  transform: `translate(
+                  transform: isMounted ? `translate(
                     ${normalizedMousePosition.x * -20}px, 
                     ${normalizedMousePosition.y * -20}px
                   ) rotate3d(
@@ -347,11 +353,11 @@ export default function Hero() {
                     ${normalizedMousePosition.x * 0.5}, 
                     0, 
                     ${Math.abs(normalizedMousePosition.x) * 10}deg
-                  )`,
+                  )` : "translate(0px, 0px)",
                   transition: "transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
                 }}
               >
-                {Array.from({ length: 120 }).map((_, index) => (
+                {isMounted && Array.from({ length: 120 }).map((_, index) => (
                   <motion.div
                     key={`orbit-particle-${index}`}
                     className="absolute w-3 h-3 rounded-full bg-violet-400"
@@ -386,7 +392,7 @@ export default function Hero() {
                   ease: "linear",
                 }}
               >
-                {Array.from({ length: 40 }).map((_, index) => (
+                {isMounted && Array.from({ length: 40 }).map((_, index) => (
                   <motion.div
                     key={`orbit-particle-2-${index}`}
                     className="absolute w-2 h-2 rounded-full bg-fuchsia-400"
@@ -462,8 +468,8 @@ export default function Hero() {
                 }}
                 style={{
                   // Additional tilt based on mouse position
-                  rotateY: normalizedMousePosition.x * 15,
-                  rotateX: normalizedMousePosition.y * -15,
+                  rotateY: isMounted ? normalizedMousePosition.x * 15 : 0,
+                  rotateX: isMounted ? normalizedMousePosition.y * -15 : 0,
                   transition: "transform 0.1s ease-out",
                 }}
                 whileHover={{
@@ -499,7 +505,7 @@ export default function Hero() {
                       className="rounded-full object-cover"
                       // Add pulse animation to the image on hover
                       style={{
-                        transform: `scale(${1 + Math.abs(normalizedMousePosition.x * 0.03)})`,
+                        transform: isMounted ? `scale(${1 + Math.abs(normalizedMousePosition.x * 0.03)})` : "scale(1)",
                         transition: "transform 0.3s ease-out",
                       }}
                     />
@@ -507,7 +513,7 @@ export default function Hero() {
                 </div>
 
                 {/* Floating particles around the profile image */}
-                {Array.from({ length: 50 }).map((_, index) => {
+                {isMounted && Array.from({ length: 50 }).map((_, index) => {
                   const angle = index * 72 + normalizedMousePosition.x * 20
                   const radius = 50 + index * 3
                   const x = Math.cos((angle * Math.PI) / 180) * radius

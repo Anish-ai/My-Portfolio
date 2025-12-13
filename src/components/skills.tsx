@@ -9,9 +9,10 @@ export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isMounted, setIsMounted] = useState(false)
   const [windowSize, setWindowSize] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 1200,
-    height: typeof window !== "undefined" ? window.innerHeight : 800
+    width: 1200,
+    height: 800
   })
 
   const { scrollYProgress } = useScroll({
@@ -34,6 +35,13 @@ export default function Skills() {
 
   // Update window size when the window is resized
   useEffect(() => {
+    // Set mounted state and initialize window size
+    setIsMounted(true);
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
@@ -131,19 +139,20 @@ export default function Skills() {
 
           {/* Dynamic height based on screen size */}
           <div className="relative h-60 sm:h-64 md:h-72 lg:h-80 perspective-1000 overflow-hidden" style={{ height: carouselHeight }}>
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              animate={{
-                rotateY: [0, 360],
-              }}
-              transition={{
-                duration: 30,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              {groupedSkills.Advanced.map((skill, index) => {
+            {isMounted && (
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{
+                  rotateY: [0, 360],
+                }}
+                transition={{
+                  duration: 30,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                }}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {groupedSkills.Advanced.map((skill, index) => {
                 // Responsive radius
                 const totalItems = groupedSkills.Advanced.length
                 const angle = (index / totalItems) * Math.PI * 2
@@ -201,8 +210,9 @@ export default function Skills() {
                     </div>
                   </motion.div>
                 )
-              })}
-            </motion.div>
+                })}
+              </motion.div>
+            )}
           </div>
         </div>
 
