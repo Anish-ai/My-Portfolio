@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: { project: ProjectType }) {
     hover: { 
       scale: 1.15,
       transition: { 
-        type: "spring", 
+        type: "spring" as const, 
         stiffness: 500, 
         damping: 10 
       }
