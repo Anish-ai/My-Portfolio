@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Github, ExternalLink, AppWindow, Smartphone, X } from "lucide-react";
+import { Github, ExternalLink, Smartphone, X } from "lucide-react";
 import { projects } from "@/data/projects";
-import { skills } from "@/data/skills"; // Keep for icon lookups if needed
+
 import ProjectTunnel from "./project-tunnel";
-import MagneticButton from "./ui/magnetic-button";
+
 
 export default function Projects() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
@@ -35,9 +35,9 @@ export default function Projects() {
               PROJECTS <span className="text-cyan-500">.LOG</span>
             </h2>
             <p className="text-cyan-500/60 font-mono text-sm max-w-md">
-               // SCROLL TO NAVIGATE HYPERSPACE
+               {"// SCROLL TO NAVIGATE HYPERSPACE"}
                <br/>
-               // CLICK DATA CARD TO ACCESS FILES
+               {"// CLICK DATA CARD TO ACCESS FILES"}
             </p>
          </motion.div>
       </div>
@@ -129,7 +129,7 @@ export default function Projects() {
                             System Modules
                          </h4>
                          <div className="flex flex-wrap gap-2">
-                           {activeProject.skills.map((skill, i) => (
+                           {activeProject.skills.map((skill) => (
                               <div key={skill} className="group/tag relative px-3 py-1.5 bg-gray-800 border border-gray-700 hover:border-cyan-500/50 transition-colors">
                                  <div className="absolute inset-0 bg-cyan-500/5 scale-x-0 group-hover/tag:scale-x-100 transition-transform origin-left" />
                                  <span className="relative text-xs text-gray-300 font-mono group-hover/tag:text-cyan-300">

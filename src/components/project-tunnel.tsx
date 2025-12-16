@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState, useMemo, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Image, Text, useScroll, ScrollControls, Stars, Float, Sparkles } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Image as DreiImage, Text, useScroll, ScrollControls, Stars, Float, Sparkles } from "@react-three/drei";
 import { projects } from "@/data/projects";
-import { motion } from "framer-motion-3d";
+
 
 // --------------------------------------------------------
 // 1. 3D Project Card
@@ -34,7 +34,7 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
     <group 
         ref={ref} 
         position={position} 
-        rotation={rotation as any}
+        rotation={rotation as [number, number, number]}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; setHover(true); }} 
         onPointerOut={() => { document.body.style.cursor = 'auto'; setHover(false); }}
         onClick={(e) => { e.stopPropagation(); onSelect(index); }}
@@ -52,7 +52,7 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
         </mesh>
 
         {/* The Project Image */}
-        <Image 
+        <DreiImage 
             url={project.thumbnail || "/placeholder.svg"} 
             scale={hovered ? [4.1, 2.3] : [4, 2.25]} 
             transparent 
@@ -93,7 +93,8 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
 // --------------------------------------------------------
 const WarpScene = ({ onSelectProject }: { onSelectProject: (index: number) => void }) => {
     const scroll = useScroll();
-    const { viewport } = useThree();
+
+
 
     useFrame((state) => {
         const totalDistance = projects.length * 6;
