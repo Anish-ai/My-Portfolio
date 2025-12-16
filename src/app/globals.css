@@ -121,3 +121,12 @@ body {
   overflow: hidden;
 }
 
+/* Hide scrollbar when no-scrollbar class is applied */
+html.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+html.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
