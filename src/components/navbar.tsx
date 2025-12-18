@@ -24,15 +24,13 @@ export default function Navbar() {
   // Enhanced smooth glassmorphism transitions
   // Note: We use fixed colors here for the glass effect, but mostly relies on the class styles for theme
   const backdropBlur = useTransform(scrollY, [0, 100], ["blur(0px)", "blur(12px)"])
-  const borderOpacity = useTransform(scrollY, [0, 100], [0, 0.2])
+
 
   return (
     <motion.nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/0 data-[scrolled=true]:bg-background/60"
       style={{
         backdropFilter: backdropBlur,
-        borderBottom: "1px solid",
-        borderColor: `rgba(6, 182, 212, ${borderOpacity})`, // Keeping cyan border for tech feel
       }}
     >
         {/* Scanning Line Effect at bottom of nav */}
