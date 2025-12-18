@@ -135,6 +135,7 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const typedEl = useRef<HTMLSpanElement>(null)
   const profileImageRef = useRef(null)
+  const collabHubRef = useRef<HTMLDivElement>(null)
   const [isMounted, setIsMounted] = useState(false)
   const [isMonitorExpanded, setIsMonitorExpanded] = useState(false)
 
@@ -177,12 +178,40 @@ export default function Hero() {
     if (!isMounted) return;
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+    // Animate name characters
     tl.from(".name-char", {
       y: 50, opacity: 0, rotateX: -90, stagger: 0.05, duration: 1,
     })
-    .from(".hero-element", {
+    // Animate hero elements (excluding collab hub)
+    .from(".hero-element:not(.collab-hub)", {
       y: 20, opacity: 0, stagger: 0.1, duration: 0.8,
-    }, "-=0.5");
+    }, "-=0.5")
+    // Animate the collaboration hub with a special effect
+    .fromTo(collabHubRef.current,
+      {
+        opacity: 0,
+        y: 40,
+        scale: 0.95,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "back.out(1.7)",
+      }, "-=0.3")
+    // Add a subtle glow animation to collab hub
+    .fromTo(".collab-glow",
+      {
+        opacity: 0,
+        scale: 0.8,
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "power2.out",
+      }, "-=0.5");
   }, { scope: containerRef, dependencies: [isMounted] })
 
   const handleEmailClick = () => {
@@ -241,10 +270,7 @@ export default function Hero() {
             className="absolute h-full w-[1px] bg-cyan-500/20"
             style={{ left: "50%", x: springX }}
          />
-         
-
       </div>
-
 
       {/* FOREGROUND HUD LAYER (Z-30) - Renders ON TOP of content blur */}
       <div className="absolute inset-0 pointer-events-none z-30 overflow-hidden">
@@ -307,75 +333,81 @@ export default function Hero() {
                 </h2>
 
                 {/* COLLABORATION HUB (CTA) - DETAILED & ATTENTION GRABBING */}
-                <div className="hero-element mb-6 p-5 rounded-xl bg-gradient-to-br from-green-500/5 to-cyan-500/5 border border-green-500/20 backdrop-blur-md relative overflow-hidden group/cta max-w-xl mx-auto md:mx-0 shadow-lg hover:shadow-green-500/10 transition-all duration-500">
-                    <div className="relative z-10 flex flex-col gap-4">
-                        {/* Status Header */}
-                        <div className="flex flex-col gap-2 border-b border-green-500/10 pb-3 mb-1">
-                            <div className="flex items-center justify-between">
-                                 <div className="flex items-center gap-3">
-                                    <span className="relative flex h-3 w-3">
-                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                                    </span>
-                                    <span className="text-green-600 dark:text-green-400 font-mono text-xs font-bold tracking-wider">STATUS: AVAILABLE</span>
-                                 </div>
-                                 <span className="text-[10px] text-zinc-400 dark:text-zinc-600 font-mono">ID: CONTRACT_OPEN</span>
-                            </div>
-                            <div className="text-[10px] md:text-xs text-zinc-500 dark:text-muted-foreground font-mono">
-                                Building ideas to life: <span className="text-cyan-600 dark:text-cyan-400">Websites</span> | <span className="text-violet-600 dark:text-violet-400">Apps</span>
-                            </div>
-                        </div>
-                        
-                        {/* Action Rows */}
-                        <div className="flex flex-col gap-3">
-                            
-                            {/* Row 1: Hire Me */}
-                            <div className="flex items-center justify-between gap-4 group/item w-full">
-                                <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover/item:text-green-600 dark:group-hover/item:text-green-400 transition-colors text-left flex-1">
-                                    Looking for a dedicated developer to join your team?
-                                </span>
-                                <a 
-                                    href={`mailto:${personalInfo.email}`}
-                                    className="w-28 py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-bold rounded flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-green-500/30 hover:scale-105"
-                                >
-                                    <Wifi size={14} /> Hire Me
-                                </a>
-                            </div>
+                <div 
+                  ref={collabHubRef}
+                  className="collab-hub mb-6 p-5 rounded-xl bg-gradient-to-br from-green-500/5 to-cyan-500/5 border border-green-500/20 backdrop-blur-md relative overflow-hidden group/cta max-w-xl mx-auto md:mx-0 shadow-lg hover:shadow-green-500/10 transition-all duration-500"
+                >
+                  {/* Glow effect */}
+                  <div className="collab-glow absolute inset-0 bg-gradient-to-br from-green-500/10 to-cyan-500/10 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="relative z-10 flex flex-col gap-4">
+                      {/* Status Header */}
+                      <div className="flex flex-col gap-2 border-b border-green-500/10 pb-3 mb-1">
+                          <div className="flex items-center justify-between">
+                               <div className="flex items-center gap-3">
+                                  <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                  </span>
+                                  <span className="text-green-600 dark:text-green-400 font-mono text-xs font-bold tracking-wider">STATUS: AVAILABLE</span>
+                               </div>
+                               <span className="text-[10px] text-zinc-400 dark:text-zinc-600 font-mono">ID: CONTRACT_OPEN</span>
+                          </div>
+                          <div className="text-[10px] md:text-xs text-zinc-500 dark:text-muted-foreground font-mono">
+                              Building ideas to life: <span className="text-cyan-600 dark:text-cyan-400">Websites</span> | <span className="text-violet-600 dark:text-violet-400">Apps</span>
+                          </div>
+                      </div>
+                      
+                      {/* Action Rows */}
+                      <div className="flex flex-col gap-3">
+                          
+                          {/* Row 1: Hire Me */}
+                          <div className="flex items-center justify-between gap-4 group/item w-full">
+                              <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover/item:text-green-600 dark:group-hover/item:text-green-400 transition-colors text-left flex-1">
+                                  Looking for a dedicated developer to join your team?
+                              </span>
+                              <a 
+                                  href={`mailto:${personalInfo.email}`}
+                                  className="w-28 py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-bold rounded flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-green-500/30 hover:scale-105"
+                              >
+                                  <Wifi size={14} /> Hire Me
+                              </a>
+                          </div>
 
-                            {/* Row 2: Call */}
-                            {personalInfo.phone && (
-                                <div className="flex items-center justify-between gap-4 group/item w-full">
-                                    <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover/item:text-cyan-600 dark:group-hover/item:text-cyan-400 transition-colors text-left flex-1">
-                                        Have a startup idea? Need technical execution?
-                                    </span>
-                                    <a 
-                                        href={`tel:${personalInfo.phone}`}
-                                        className="w-28 py-2 bg-background border border-cyan-500/30 hover:border-cyan-500/60 text-cyan-600 dark:text-cyan-400 text-xs font-bold rounded flex items-center justify-center gap-2 transition-all hover:scale-105 hover:bg-cyan-500/5"
-                                    >
-                                        <Smartphone size={14} /> Call
-                                    </a>
-                                </div>
-                            )}
+                          {/* Row 2: Call */}
+                          {personalInfo.phone && (
+                              <div className="flex items-center justify-between gap-4 group/item w-full">
+                                  <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover/item:text-cyan-600 dark:group-hover/item:text-cyan-400 transition-colors text-left flex-1">
+                                      Have a startup idea? Need technical execution?
+                                  </span>
+                                  <a 
+                                      href={`tel:${personalInfo.phone}`}
+                                      className="w-28 py-2 bg-background border border-cyan-500/30 hover:border-cyan-500/60 text-cyan-600 dark:text-cyan-400 text-xs font-bold rounded flex items-center justify-center gap-2 transition-all hover:scale-105 hover:bg-cyan-500/5"
+                                  >
+                                      <Smartphone size={14} /> Call
+                                  </a>
+                              </div>
+                          )}
 
-                            {/* Row 3: Github */}
-                            {personalInfo.github && (
-                                <div className="flex items-center justify-between gap-4 group/item w-full">
-                                    <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover/item:text-foreground transition-colors text-left flex-1">
-                                        Want to verify my skills? Check out my works...
-                                    </span>
-                                    <a 
-                                        href={personalInfo.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-28 py-2 bg-secondary border border-border hover:border-foreground/50 text-foreground text-xs font-bold rounded flex items-center justify-center gap-2 transition-all hover:scale-105"
-                                    >
-                                        <Github size={14} /> GitHub
-                                    </a>
-                                </div>
-                            )}
+                          {/* Row 3: Github */}
+                          {personalInfo.github && (
+                              <div className="flex items-center justify-between gap-4 group/item w-full">
+                                  <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover/item:text-foreground transition-colors text-left flex-1">
+                                      Want to verify my skills? Check out my works...
+                                  </span>
+                                  <a 
+                                      href={personalInfo.github}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="w-28 py-2 bg-secondary border border-border hover:border-foreground/50 text-foreground text-xs font-bold rounded flex items-center justify-center gap-2 transition-all hover:scale-105"
+                                  >
+                                      <Github size={14} /> GitHub
+                                  </a>
+                              </div>
+                          )}
 
-                        </div>
-                    </div>
+                      </div>
+                  </div>
                 </div>
 
                 <p className="text-zinc-700 dark:text-muted-foreground mb-7 max-w-lg mx-auto md:mx-0 hero-element leading-relaxed text-xs md:text-sm">
