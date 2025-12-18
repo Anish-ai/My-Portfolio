@@ -34,8 +34,8 @@ const HexSkill = ({
             {/* Hexagon Shape (Clip-path) */}
             <div 
                 className={`
-                    w-full h-full bg-black/40 backdrop-blur-md 
-                    ${isActive ? 'bg-cyan-900/40 border-cyan-400' : 'border-white/5 hover:border-cyan-500/50 hover:bg-cyan-950/30'}
+                    w-full h-full bg-card/40 backdrop-blur-md 
+                    ${isActive ? 'bg-cyan-900/40 border-cyan-400' : 'border-white/5 hover:border-cyan-500/50 hover:bg-cyan-500/10'}
                     flex flex-col items-center justify-center p-2
                     transition-colors duration-300
                 `}
@@ -45,7 +45,7 @@ const HexSkill = ({
             >
                 {/* Simulated Border Container (Outer Hex) */}
                 <div 
-                    className={`absolute inset-[1px] ${isActive ? 'bg-cyan-500/20' : 'bg-black/60'} flex flex-col items-center justify-center`}
+                    className={`absolute inset-[1px] ${isActive ? 'bg-cyan-500/20' : 'bg-card/60'} flex flex-col items-center justify-center`}
                     style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
                 >
                      {/* Icon */}
@@ -58,11 +58,11 @@ const HexSkill = ({
                         />
                     </div>
                     {/* Name */}
-                    <span className="text-[9px] md:text-[10px] font-mono text-cyan-500/70 group-hover:text-cyan-400 uppercase tracking-tighter">
+                    <span className="text-[9px] md:text-[10px] font-mono text-cyan-700/80 dark:text-cyan-500/70 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 uppercase tracking-tighter">
                         {skill.name}
                     </span>
                     {/* Bar */}
-                    <div className="w-10 h-0.5 bg-gray-800 mt-1 rounded-full overflow-hidden">
+                    <div className="w-10 h-0.5 bg-secondary mt-1 rounded-full overflow-hidden">
                         <div 
                             className="h-full bg-cyan-500" 
                             style={{ width: `${skill.percentage}%` }} 
@@ -115,12 +115,12 @@ export default function Skills() {
     <section 
         id="skills" 
         onMouseMove={handleMouseMove}
-        className="relative min-h-screen py-20 w-full bg-black flex flex-col items-center justify-center overflow-hidden group/skills"
+        className="relative min-h-screen py-20 w-full bg-background flex flex-col items-center justify-center overflow-hidden group/skills"
     >
       
       {/* Background Decor */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-[length:50px_50px]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background z-0" />
 
       {/* SPOTLIGHT EFFECT */}
       <motion.div 
@@ -150,13 +150,13 @@ export default function Skills() {
             <motion.h2 
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-gray-400 font-mono tracking-tighter"
+                className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-cyan-500 to-muted-foreground font-mono tracking-tighter"
             >
                 SYSTEM_MODULES
             </motion.h2>
             <div className="flex items-center justify-center gap-4 mt-2">
                 <div className="h-[1px] w-12 bg-cyan-500/50" />
-                <p className="text-cyan-500 font-mono text-xs tracking-[0.3em]">HOLOGRAPHIC DATABASE</p>
+                <p className="text-cyan-700 dark:text-cyan-500 font-mono text-xs tracking-[0.3em]">HOLOGRAPHIC DATABASE</p>
                 <div className="h-[1px] w-12 bg-cyan-500/50" />
             </div>
       </div>
@@ -184,13 +184,13 @@ export default function Skills() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={() => setActiveSkill(null)}
-                    className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+                    className="absolute inset-0 bg-background/60 backdrop-blur-sm cursor-pointer"
                 />
 
                 {/* Modal Card */}
                 <motion.div 
                     layoutId={`hex-${activeSkill.name}`} 
-                    className="relative w-full max-w-lg bg-black/90 border border-cyan-500/30 rounded-xl overflow-hidden shadow-[0_0_100px_rgba(6,182,212,0.2)]"
+                    className="relative w-full max-w-lg bg-card/95 border border-cyan-500/30 rounded-xl overflow-hidden shadow-[0_0_100px_rgba(6,182,212,0.2)]"
                     onClick={(e: MouseEvent) => e.stopPropagation()} // Prevent click from closing
                 >
                     {/* Decorative Scan Line */}
@@ -202,14 +202,14 @@ export default function Skills() {
                     />
                     
                     {/* Header Bar */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-cyan-500/20 bg-cyan-950/20">
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-cyan-500/20 bg-cyan-600/10 dark:bg-cyan-500/10">
                         <div className="flex items-center gap-2">
                              <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-                             <span className="text-xs font-mono text-cyan-400 tracking-widest">SYSTEM_ANALYSIS // {activeSkill.name.toUpperCase()}</span>
+                             <span className="text-xs font-mono text-cyan-700 dark:text-cyan-400 tracking-widest">SYSTEM_ANALYSIS // {activeSkill.name.toUpperCase()}</span>
                         </div>
                         <button 
                             onClick={() => setActiveSkill(null)}
-                            className="text-cyan-500/50 hover:text-cyan-400 transition-colors"
+                            className="text-cyan-700/50 dark:text-cyan-500/50 hover:text-cyan-400 transition-colors"
                         >
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -236,11 +236,11 @@ export default function Skills() {
 
                             <div className="flex-1 space-y-4">
                                 <div>
-                                    <h3 className="text-3xl font-bold text-white font-mono tracking-tighter">{activeSkill.name}</h3>
-                                    <span className="text-xs font-mono text-gray-500">MODULE ID: SYS-{activeSkill.name.substring(0,3).toUpperCase()}-{activeSkill.percentage}</span>
+                                    <h3 className="text-3xl font-bold text-foreground font-mono tracking-tighter">{activeSkill.name}</h3>
+                                    <span className="text-xs font-mono text-muted-foreground/70">MODULE ID: SYS-{activeSkill.name.substring(0,3).toUpperCase()}-{activeSkill.percentage}</span>
                                 </div>
                                 
-                                <p className="text-sm text-gray-300 leading-relaxed border-l-2 border-cyan-500/30 pl-3">
+                                <p className="text-sm text-zinc-700 dark:text-muted-foreground leading-relaxed border-l-2 border-cyan-500/30 pl-3">
                                     {activeSkill.description || `High-performance execution of ${activeSkill.name} protocols.`}
                                 </p>
                             </div>
@@ -248,11 +248,11 @@ export default function Skills() {
 
                         {/* Stats Section */}
                         <div className="mt-8 space-y-2">
-                            <div className="flex justify-between text-xs font-mono text-cyan-500">
+                            <div className="flex justify-between text-xs font-mono text-cyan-700 dark:text-cyan-500">
                                 <span>PROFICIENCY_LEVEL</span>
                                 <span>{activeSkill.percentage}%</span>
                             </div>
-                            <div className="h-1.5 w-full bg-gray-900 rounded-full overflow-hidden">
+                            <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
                                 <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${activeSkill.percentage}%` }}
@@ -264,7 +264,7 @@ export default function Skills() {
                     </div>
 
                     {/* Footer Tech Decor */}
-                    <div className="h-6 bg-cyan-950/30 border-t border-cyan-500/20 flex items-center justify-between px-4">
+                    <div className="h-6 bg-cyan-500/10 border-t border-cyan-500/20 flex items-center justify-between px-4">
                          <div className="flex gap-1">
                              {[...Array(5)].map((_, i) => (
                                  <div key={i} className="w-1 h-3 bg-cyan-500/20 skew-x-12" />

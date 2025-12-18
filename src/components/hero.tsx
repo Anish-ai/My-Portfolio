@@ -83,11 +83,11 @@ const SystemMonitor = () => {
             <div className="flex items-center justify-between gap-4 mb-2">
                  <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <span className="font-bold text-green-400">SYS.ONLINE</span>
+                    <span className="font-bold text-green-700 dark:text-green-400">SYS.ONLINE</span>
                  </div>
                  <button 
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="text-[10px] text-cyan-500 hover:text-white cursor-pointer hover:bg-cyan-500/20 px-1 rounded transition-colors"
+                    className="text-[10px] text-cyan-700 dark:text-cyan-500 hover:text-black dark:hover:text-white cursor-pointer hover:bg-cyan-500/20 px-1 rounded transition-colors"
                  >
                     [{isExpanded ? "-" : "+"}]
                  </button>
@@ -103,23 +103,23 @@ const SystemMonitor = () => {
                     className="overflow-hidden"
                 >
                     <div className="grid grid-cols-[60px_1fr] gap-x-2 gap-y-1 text-[10px]">
-                        <span className="text-cyan-700">FPS</span>
-                        <span className="text-cyan-300">{stats.fps}</span>
+                        <span className="text-cyan-800 dark:text-cyan-700">FPS</span>
+                        <span className="text-cyan-600 dark:text-cyan-300">{stats.fps}</span>
                         
-                        <span className="text-cyan-700">MEM</span>
-                        <span className="text-cyan-300">{stats.memory.toFixed(1)}%</span>
+                        <span className="text-cyan-800 dark:text-cyan-700">MEM</span>
+                        <span className="text-cyan-600 dark:text-cyan-300">{stats.memory.toFixed(1)}%</span>
                         
-                        <span className="text-cyan-700">PING</span>
-                        <span className="text-cyan-300">{stats.latency}ms</span>
+                        <span className="text-cyan-800 dark:text-cyan-700">PING</span>
+                        <span className="text-cyan-600 dark:text-cyan-300">{stats.latency}ms</span>
 
-                        <span className="text-cyan-700">NET</span>
-                        <span className="text-cyan-300">{(stats.netSpeed / 1000).toFixed(1)} Gbps</span>
+                        <span className="text-cyan-800 dark:text-cyan-700">NET</span>
+                        <span className="text-cyan-600 dark:text-cyan-300">{(stats.netSpeed / 1000).toFixed(1)} Gbps</span>
 
-                        <span className="text-cyan-700">PKTS</span>
-                        <span className="text-cyan-300">{stats.packets}</span>
+                        <span className="text-cyan-800 dark:text-cyan-700">PKTS</span>
+                        <span className="text-cyan-600 dark:text-cyan-300">{stats.packets}</span>
 
-                        <span className="text-cyan-700">UPTIME</span>
-                        <span className="text-cyan-300">00:00:{stats.uptime.toString().padStart(2, '0')}</span>
+                        <span className="text-cyan-800 dark:text-cyan-700">UPTIME</span>
+                        <span className="text-cyan-600 dark:text-cyan-300">00:00:{stats.uptime.toString().padStart(2, '0')}</span>
                     </div>
 
                     <div className="mt-2 pt-2 border-t border-cyan-500/20 text-[8px] text-cyan-600 font-mono">
@@ -222,7 +222,7 @@ export default function Hero() {
   }, [handleMouseMove, mouseX, mouseY, rawMouseX, rawMouseY])
 
   return (
-    <section id="hero" ref={containerRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-black/20">
+    <section id="hero" ref={containerRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-background/20">
         
       {/* 3D Floating Shapes Background */}
       {isMounted && <FloatingShapes />}
@@ -251,7 +251,7 @@ export default function Hero() {
          {isMounted && (
              <>
                  <motion.div 
-                    className="absolute top-20 left-6 md:left-10 text-xs font-mono text-cyan-500/80 bg-black/40 backdrop-blur-md p-4 rounded border border-cyan-500/20 pointer-events-auto" 
+                    className="absolute top-20 left-6 md:left-10 text-xs font-mono text-cyan-500/80 bg-background/40 backdrop-blur-md p-4 rounded border border-cyan-500/20 pointer-events-auto" 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
@@ -261,17 +261,17 @@ export default function Hero() {
                  </motion.div>
                  
                  <motion.div 
-                    className="absolute bottom-20 right-6 md:right-10 text-xs font-mono text-violet-500/80 text-right pointer-events-auto"
+                    className="absolute bottom-20 right-6 md:right-10 text-xs font-mono text-violet-700 dark:text-violet-500/80 text-right pointer-events-auto"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
                     style={{ x: invHudX }}
                  >
-                    <div className="flex flex-col gap-1 bg-black/40 backdrop-blur-md p-4 rounded border border-violet-500/20">
-                        <div className="border-b border-violet-500/20 pb-1 mb-1 font-bold">TARGET_COORDS</div>
+                    <div className="flex flex-col gap-1 bg-background/40 backdrop-blur-md p-4 rounded border border-violet-500/30 dark:border-violet-500/20">
+                        <div className="border-b border-violet-500/30 dark:border-violet-500/20 pb-1 mb-1 font-bold">TARGET_COORDS</div>
                         <div>X: <DisplayValue value={rawMouseX} /></div>
                         <div>Y: <DisplayValue value={rawMouseY} /></div>
-                        <div className="mt-2 text-[10px] text-violet-400/60">
+                        <div className="mt-2 text-[10px] text-violet-600 dark:text-violet-400/60">
                             VECTOR: [{(Math.random() * 90).toFixed(2)}°, {(Math.random() * 90).toFixed(2)}°]
                         </div>
                     </div>
@@ -285,28 +285,28 @@ export default function Hero() {
           
           {/* Left Content */}
           <div className="md:w-1/2 relative">
-             <div className="backdrop-blur-sm bg-black/20 border border-white/5 p-8 rounded-2xl md:text-left text-center shadow-2xl relative overflow-hidden group">
+             <div className="backdrop-blur-sm bg-card/30 border border-border/50 p-8 rounded-2xl md:text-left text-center shadow-2xl relative overflow-hidden group">
                 {/* Tech Corner Accents */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500 opacity-50" />
                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-violet-500 opacity-50" />
                 
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 hero-element">
-                    <span className="block text-gray-300 text-2xl mb-2 font-mono text-cyan-400/80">&lt;Hello /&gt;</span>
+                    <span className="block text-xl md:text-2xl mb-2 font-mono text-cyan-700/80 dark:text-cyan-400/80">&lt;Hello /&gt;</span>
                     <div className="flex flex-wrap justify-center md:justify-start gap-x-1">
                         {personalInfo.name.split("").map((char, i) => (
-                            <span key={i} className="name-char inline-block bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-fuchsia-500">
+                            <span key={i} className="name-char inline-block bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-500">
                                 {char === " " ? "\u00A0" : char}
                             </span>
                         ))}
                     </div>
                 </h1>
 
-                <h2 className="text-2xl md:text-3xl mb-6 text-gray-300 hero-element flex items-center gap-3 justify-center md:justify-start">
-                    <Activity className="w-6 h-6 text-cyan-500 animate-pulse" />
+                <h2 className="text-2xl md:text-3xl mb-6 text-foreground hero-element flex items-center gap-3 justify-center md:justify-start">
+                    <Activity className="w-6 h-6 text-cyan-600 dark:text-cyan-500 animate-pulse" />
                     <span>I&apos;m a <span ref={typedEl}></span></span>
                 </h2>
 
-                <p className="text-gray-400 mb-8 max-w-lg mx-auto md:mx-0 hero-element leading-relaxed">
+                <p className="text-zinc-700 dark:text-muted-foreground mb-8 max-w-lg mx-auto md:mx-0 hero-element leading-relaxed">
                     {personalInfo.bio}
                 </p>
 
@@ -324,7 +324,7 @@ export default function Hero() {
                     <MagneticButton>
                         <button
                             onClick={handleEmailClick}
-                            className="px-8 py-3 bg-black/40 border border-cyan-500/50 text-cyan-400 font-bold hover:bg-cyan-500/10 transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                            className="px-8 py-3 bg-background/40 border border-cyan-500/50 text-cyan-600 dark:text-cyan-400 font-bold hover:bg-cyan-500/10 transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]"
                             style={{ clipPath: "polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%)" }}
                         >
                             <span className="flex items-center gap-2"><Wifi size={18} /> Contact</span>
@@ -364,7 +364,7 @@ export default function Hero() {
                />
 
                {/* Target Brackets */}
-               <div className="absolute -inset-4 border border-white/5 rounded-xl pointer-events-none">
+               <div className="absolute -inset-4 border border-foreground/5 rounded-xl pointer-events-none">
                    <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-400" />
                    <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-400" />
                    <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-400" />
@@ -373,7 +373,7 @@ export default function Hero() {
                </div>
 
                {/* Main Profile Container */}
-               <div className="w-full h-full hexagonal-mask relative z-10 bg-gray-900 border-2 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.4)] overflow-hidden rounded-full">
+               <div className="w-full h-full hexagonal-mask relative z-10 bg-card border-2 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.4)] overflow-hidden rounded-full">
                  <Image
                     src={personalInfo.profileImage || "/placeholder.svg"}
                     alt="Profile"
@@ -390,7 +390,7 @@ export default function Hero() {
                  
                  {/* Digital Glitch Overlay */}
                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-30 mix-blend-overlay" />
-                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-mono text-cyan-400 bg-black/80 px-2 rounded">
+                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-mono text-cyan-400 bg-background/80 px-2 rounded">
                     TRACKING ACTIVE
                  </div>
                </div>

@@ -89,7 +89,7 @@ import GlitchText from "@/components/ui/glitch-text"
 
 export default function Footer() {
     return (
-        <footer className="relative w-full overflow-hidden bg-black pt-20 pb-10">
+        <footer className="relative w-full overflow-hidden bg-background pt-20 pb-10">
             {/* 3D BACKGROUND CANVAS */}
             <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
                 <Canvas>
@@ -99,7 +99,7 @@ export default function Footer() {
                     <MovingGrid />
                 </Canvas>
                 {/* Fade out at top */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-transparent h-40" />
+                <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-transparent h-40" />
             </div>
 
             <div className="container relative z-10 mx-auto px-4">
@@ -109,7 +109,7 @@ export default function Footer() {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 mb-12 shadow-[0_0_50px_rgba(6,182,212,0.1)] relative overflow-hidden"
+                    className="bg-card/40 backdrop-blur-xl border border-border/30 rounded-2xl p-8 md:p-12 mb-12 shadow-[0_0_50px_rgba(6,182,212,0.1)] relative overflow-hidden"
                 >
                     {/* Panel Decor */}
                     <div className="absolute top-0 right-0 p-4 opacity-20">
@@ -124,28 +124,28 @@ export default function Footer() {
                         
                         {/* BRAND / INFO */}
                         <div className="lg:col-span-5 space-y-6">
-                            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-gray-500 tracking-tighter">
+                            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-cyan-500 to-muted-foreground tracking-tighter">
                                 {personalInfo.name.toUpperCase()}
                             </h2>
-                            <p className="text-gray-400 leading-relaxed max-w-sm font-light">
+                            <p className="text-zinc-600 dark:text-muted-foreground leading-relaxed max-w-sm font-light">
                                 {personalInfo.footerBio}
                             </p>
                             
                             {/* Status Indicators */}
                             <div className="flex gap-4 pt-4">
-                                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/5">
+                                <div className="flex items-center gap-2 px-3 py-1 bg-foreground/5 rounded-full border border-foreground/5">
                                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                                    <span className="text-[10px] font-mono text-gray-400">AVAILABLE FOR WORK</span>
+                                    <span className="text-[10px] font-mono text-zinc-600 dark:text-muted-foreground">AVAILABLE FOR WORK</span>
                                 </div>
-                                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/5">
-                                    <span className="text-[10px] font-mono text-gray-400">V.2.0.4.RELEASE</span>
+                                <div className="flex items-center gap-2 px-3 py-1 bg-foreground/5 rounded-full border border-foreground/5">
+                                    <span className="text-[10px] font-mono text-muted-foreground">V.2.0.4.RELEASE</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* NAVIGATION LINKS */}
                         <div className="lg:col-span-4 flex flex-col gap-4">
-                            <h3 className="text-sm font-bold text-white mb-2 uppercase tracking-widest border-b border-white/10 pb-2 w-max">Coordinates</h3>
+                            <h3 className="text-sm font-bold text-foreground mb-2 uppercase tracking-widest border-b border-border/30 pb-2 w-max">Coordinates</h3>
                             <GlitchText text="Home Base" href="#hero" />
                             <GlitchText text="Project Logs" href="#projects" />
                             <GlitchText text="Skill Database" href="#skills" />
@@ -153,7 +153,7 @@ export default function Footer() {
 
                         {/* SOCIALS & ACTION */}
                         <div className="lg:col-span-3 flex flex-col gap-6 items-start lg:items-end">
-                            <h3 className="text-sm font-bold text-white mb-2 uppercase tracking-widest border-b border-white/10 pb-2 w-max text-right">Comms Link</h3>
+                            <h3 className="text-sm font-bold text-foreground mb-2 uppercase tracking-widest border-b border-border/30 pb-2 w-max text-right">Comms Link</h3>
                             
                             <div className="flex gap-4">
                                 {socialLinks.map((link) => (
@@ -162,7 +162,7 @@ export default function Footer() {
                                             href={link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 flex items-center justify-center bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-500/50 rounded-lg text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm"
+                                            className="w-10 h-10 flex items-center justify-center bg-foreground/5 hover:bg-cyan-500/20 border border-foreground/10 hover:border-cyan-500/50 rounded-lg text-zinc-600 dark:text-muted-foreground hover:text-cyan-600 dark:hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm"
                                         >
                                             <link.icon size={18} />
                                         </a>
@@ -172,7 +172,7 @@ export default function Footer() {
 
                             <button 
                                 onClick={() => window.location.href = `mailto:${personalInfo.email}`}
-                                className="group relative px-6 py-3 bg-white text-black font-bold font-mono text-sm tracking-wider uppercase hover:bg-cyan-400 transition-colors clip-path-polygon"
+                                className="group relative px-6 py-3 bg-foreground text-background font-bold font-mono text-sm tracking-wider uppercase hover:bg-cyan-400 dark:hover:bg-cyan-500 transition-colors clip-path-polygon"
                                 style={{ clipPath: "polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)" }}
                             >
                                 <span className="relative z-10">Initialize Contact</span>
@@ -184,7 +184,7 @@ export default function Footer() {
                 </motion.div>
 
                 {/* BOTTOM BAR */}
-                <div className="flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-gray-600 border-t border-white/5 pt-8">
+                <div className="flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-zinc-500 dark:text-muted-foreground/60 border-t border-border/20 pt-8">
                     <div>
                         © {new Date().getFullYear()} {personalInfo.name.toUpperCase()} {"// ALL RIGHTS RESERVED"}
                     </div>

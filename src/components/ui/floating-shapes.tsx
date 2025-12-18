@@ -4,6 +4,7 @@ import { useRef, useMemo, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { MeshDistortMaterial, Float } from "@react-three/drei"
 import * as THREE from "three"
+import { useTheme } from "next-themes";
 
 function FloatingMesh({ 
   position, 
@@ -51,10 +52,10 @@ function FloatingMesh({
           color={hovered ? "#d946ef" : color}
           distort={0.4}
           speed={2}
-          roughness={0.1}
-          metalness={0.8}
+          roughness={0}
+          metalness={0.5}
           transparent
-          opacity={0.6}
+          opacity={0.5}
         />
       </mesh>
     </Float>
@@ -62,6 +63,9 @@ function FloatingMesh({
 }
 
 export default function FloatingShapes() {
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === "dark"
+
   // Generate random shapes
   const shapes = useMemo(() => Array.from({ length: 15 }).map((_, i) => ({
     width: 1,
@@ -70,11 +74,14 @@ export default function FloatingShapes() {
       (Math.random() - 0.5) * 10,  // Spread y
       (Math.random() - 0.5) * 5    // Spread z
     ] as [number, number, number],
-    color: i % 2 === 0 ? "#8b5cf6" : "#0ea5e9", // Violet or Sky Blue
+    // Dark Mode: Violet/Sky (Neon) | Light Mode: Violet/Blue (Deep but vibrant)
+    color: i % 2 === 0 
+      ? (isDark ? "#8b5cf6" : "#7c3aed") // Violet-500 vs Violet-600
+      : (isDark ? "#0ea5e9" : "#0284c7"), // Sky-500 vs Sky-600
     scale: 0.2 + Math.random() * 0.5,
     speed: 1 + Math.random(),
     factor: 0.5 + Math.random(),
-  })), [])
+  })), [isDark])
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0">

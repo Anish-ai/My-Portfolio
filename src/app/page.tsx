@@ -7,7 +7,7 @@ import CustomCursor from "@/components/custom-cursor"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-950 to-black text-white overflow-hidden">
+    <main className="min-h-screen bg-background text-foreground overflow-hidden">
       <CustomCursor />
       <Navbar />
       <Hero />

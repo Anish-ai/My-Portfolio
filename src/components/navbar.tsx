@@ -15,23 +15,24 @@ const navItems = [
   { name: "Contact", to: "footer" },
 ]
 
+import ThemeToggle from "./ui/theme-toggle"
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { scrollY } = useScroll()
   
   // Enhanced smooth glassmorphism transitions
-  const backgroundColor = useTransform(scrollY, [0, 100], ["rgba(0, 0, 0, 0)", "rgba(3, 7, 18, 0.6)"])
+  // Note: We use fixed colors here for the glass effect, but mostly relies on the class styles for theme
   const backdropBlur = useTransform(scrollY, [0, 100], ["blur(0px)", "blur(12px)"])
-  const borderColor = useTransform(scrollY, [0, 100], ["rgba(255, 255, 255, 0)", "rgba(6, 182, 212, 0.2)"]) // Cyan border
+  const borderOpacity = useTransform(scrollY, [0, 100], [0, 0.2])
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/0 data-[scrolled=true]:bg-background/60"
       style={{
-        backgroundColor,
         backdropFilter: backdropBlur,
         borderBottom: "1px solid",
-        borderColor,
+        borderColor: `rgba(6, 182, 212, ${borderOpacity})`, // Keeping cyan border for tech feel
       }}
     >
         {/* Scanning Line Effect at bottom of nav */}
@@ -52,7 +53,7 @@ export default function Navbar() {
         >
           <ThreeLogo />
           <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 hidden sm:block font-mono">
+              <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground hidden sm:block font-mono">
                 ANISH.DEV
               </span>
               <span className="text-[9px] text-cyan-500 font-mono tracking-widest hidden sm:block">SYSTEM_ONLINE</span>
@@ -60,7 +61,7 @@ export default function Navbar() {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-1">
+        <div className="hidden md:flex items-center space-x-1">
           {navItems.map((item, index) => (
             <MagneticButton key={item.name}>
                 <motion.div
@@ -86,20 +87,26 @@ export default function Navbar() {
 
                         <GlitchText 
                             text={item.name} 
-                            className="text-gray-300 group-hover:text-white px-2"
+                            className="text-muted-foreground group-hover:text-foreground px-2"
                         />
                     </ScrollLink>
                 </motion.div>
             </MagneticButton>
           ))}
+          
+          {/* Desktop Theme Toggle */}
+          <div className="ml-6 pl-6 border-l border-border/50">
+             <ThemeToggle />
+          </div>
         </div>
 
         {/* Mobile Navigation Toggle */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-4">
+          <ThemeToggle />
           <MagneticButton>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-300 hover:text-white transition-colors p-2"
+                className="text-muted-foreground hover:text-foreground transition-colors p-2"
                 aria-label="Toggle Menu"
             >
                 {isOpen ? <X className="text-cyan-400" size={24} /> : <Menu size={24} />}
@@ -115,7 +122,7 @@ export default function Navbar() {
           animate={{ opacity: 1, height: "100vh" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="md:hidden fixed inset-0 top-[60px] bg-black/95 backdrop-blur-xl border-t border-cyan-500/20 overflow-hidden z-40"
+          className="md:hidden fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl border-t border-cyan-500/20 overflow-hidden z-40"
         >
           {/* Tech decoration mobile */}
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -135,7 +142,7 @@ export default function Navbar() {
                   offset={-70}
                   duration={800}
                   onClick={() => setIsOpen(false)}
-                  className="text-3xl font-mono tracking-tighter text-gray-400 hover:text-cyan-400 cursor-pointer transition-colors block py-2"
+                  className="text-3xl font-mono tracking-tighter text-muted-foreground hover:text-cyan-400 cursor-pointer transition-colors block py-2"
                 >
                    <GlitchText text={`< ${item.name} />`} className="inline-block" />
                 </ScrollLink>
