@@ -4,10 +4,15 @@ import { useRef, useState, type ComponentProps } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Float, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
+import { useColor } from "@/context/color-context"
+import { THEME_COLORS } from "@/lib/constants"
 
 function LogoMesh(props: ComponentProps<'mesh'>) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHover] = useState(false);
+  const { colorTheme } = useColor();
+
+  const activePalette = THEME_COLORS[colorTheme] || THEME_COLORS.cyber;
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -30,7 +35,7 @@ function LogoMesh(props: ComponentProps<'mesh'>) {
     >
       <icosahedronGeometry args={[1, 0]} />
       <MeshDistortMaterial
-        color={hovered ? "#d946ef" : "#8b5cf6"} // Fuchsia to Violet
+        color={hovered ? activePalette.accent : activePalette.primary} 
         attach="material"
         distort={0.4} // Strength, 0 disables the effect (default=1)
         speed={2} // Speed (default=1)

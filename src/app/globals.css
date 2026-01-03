@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
   --background: 0 0% 100%;
   /* Pure White */
@@ -14,18 +16,23 @@
   --popover: 0 0% 100%;
   --popover-foreground: 240 10% 3.9%;
 
+  /* --- DEFAULT THEME (CYBER) --- */
   --primary: 189 94% 43%;
   /* Cyan 500 */
   --primary-foreground: 0 0% 98%;
+  --accent: 262 83% 58%;
+  /* Violet 500 */
+  --accent-foreground: 210 40% 98%;
+  --glitch-color-1: 139, 92, 246;
+  /* Violet */
+  --glitch-color-2: 6, 182, 212;
+  /* Cyan */
 
   --secondary: 240 4.8% 95.9%;
   --secondary-foreground: 240 5.9% 10%;
 
   --muted: 240 4.8% 95.9%;
   --muted-foreground: 240 3.8% 46.1%;
-
-  --accent: 240 4.8% 95.9%;
-  --accent-foreground: 240 5.9% 10%;
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
@@ -42,6 +49,12 @@
   /* Black */
   --foreground: 210 40% 98%;
   /* White */
+  /* Keep Light colors or switch? For contrast on dark BG, Violet/Cyan works great. */
+  /* On Light BG, Cyan is weak. */
+  --glitch-color-1: 139, 92, 246;
+  /* Violet (Same) */
+  --glitch-color-2: 6, 182, 212;
+  /* Cyan (Same) */
 
   --card: 222 47% 11%;
   --card-foreground: 210 40% 98%;
@@ -69,12 +82,77 @@
   --ring: 189 94% 43%;
 }
 
+/* --- DYNAMIC COLOR THEMES --- */
+
+/* CRIMSON (Red & Orange) */
+[data-color="crimson"] {
+  --primary: 0 84% 60%;
+  /* Red 500 */
+  --primary-foreground: 0 0% 98%;
+  --accent: 24 95% 53%;
+  /* Orange 500 */
+  --glitch-color-1: 0, 84, 60;
+  /* Red */
+  --glitch-color-2: 24, 95, 53;
+  /* Orange */
+}
+
+/* EMERALD (Green & Lime) */
+[data-color="emerald"] {
+  --primary: 142 71% 45%;
+  /* Emerald 500 */
+  --primary-foreground: 0 0% 98%;
+  --accent: 84 81% 44%;
+  /* Lime 500 */
+  --glitch-color-1: 142, 71, 45;
+  --glitch-color-2: 84, 81, 44;
+}
+
+/* AMBER (Amber & Yellow) */
+[data-color="amber"] {
+  --primary: 38 92% 50%;
+  /* Amber 500 */
+  --primary-foreground: 0 0% 10%;
+  --accent: 45 93% 47%;
+  /* Yellow 500 */
+  --glitch-color-1: 38, 92, 50;
+  --glitch-color-2: 45, 93, 47;
+}
+
+/* ROYAL (Blue & Indigo) */
+[data-color="royal"] {
+  --primary: 221 83% 53%;
+  /* Blue 600 */
+  --primary-foreground: 0 0% 98%;
+  --accent: 243 75% 59%;
+  /* Indigo 500 */
+  --glitch-color-1: 221, 83, 53;
+  --glitch-color-2: 243, 75, 59;
+}
+
+/* DARK MODE OVERRIDES */
+[data-color="crimson"] .dark {
+  --primary: 0 72% 51%;
+}
+
+[data-color="emerald"] .dark {
+  --primary: 142 71% 45%;
+}
+
+[data-color="amber"] .dark {
+  --primary: 38 92% 50%;
+}
+
+[data-color="royal"] .dark {
+  --primary: 221 83% 53%;
+}
+
 body {
   color: hsl(var(--foreground));
   background: hsl(var(--background));
   cursor: none;
   transition: background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1), color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
 /* Hide default cursor on desktop */
@@ -136,31 +214,31 @@ body {
 
 /* Scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #8a2be2, #ff00ff);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   border-radius: 10px;
   transition: background 0.3s ease-in-out, height 0.2s ease-in-out;
 }
 
 /* Scrollbar thumb hover effect */
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #9b4dff, #ff4dff);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   height: 40px;
-  box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+  box-shadow: 0 0 8px hsl(var(--primary));
 }
 
 /* Active (dragging) effect */
 ::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(135deg, #6a1bbd, #d600d6);
-  box-shadow: 0 0 12px rgba(255, 0, 255, 0.8);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  box-shadow: 0 0 12px hsl(var(--primary));
 }
 
 /* Glowing effects */
 .glow-text {
-  text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+  text-shadow: 0 0 10px hsl(var(--primary) / 0.7);
 }
 
 .glow-border {
-  box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+  box-shadow: 0 0 15px hsl(var(--primary) / 0.5);
 }
 
 /* Animations */
@@ -182,12 +260,10 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Prevent scroll when locked */
 .scroll-locked {
   overflow: hidden;
 }
 
-/* Hide scrollbar when no-scrollbar class is applied */
 html.no-scrollbar::-webkit-scrollbar {
   display: none !important;
 }
@@ -195,4 +271,180 @@ html.no-scrollbar::-webkit-scrollbar {
 html.no-scrollbar {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+  color: transparent;
+  /* Use foreground color (Black in Light, White in Dark) for visible stroke, or variable? */
+  /* For Techy: Dark Mode -> Cyan/Violet is good. Light Mode -> Cyan is faint. */
+  /* Let's use var(--foreground) for main stroke to guarantee readability on any BG. */
+  -webkit-text-stroke: 1px hsl(var(--foreground));
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: block;
+}
+
+.glitch-text::before {
+  color: transparent;
+  /* Violet Stroke - good on Dark, Okay on Light (Purple on White) */
+  -webkit-text-stroke: 2px rgba(var(--glitch-color-1), 0.8);
+  z-index: -1;
+  animation: glitch-anim-1 3s infinite linear alternate-reverse;
+  opacity: 0.7;
+}
+
+.glitch-text::after {
+  color: transparent;
+  /* Cyan Stroke - Faint on Light. */
+  /* Let's make it Darker Cyan or just Blue for Light mode? */
+  /* Or just keep it. If main stroke is Black (foreground), it will be readable. */
+  -webkit-text-stroke: 2px rgba(var(--glitch-color-2), 0.5);
+  z-index: -2;
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+  opacity: 0.5;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+    transform: translate(-2px, 1px);
+  }
+
+  20% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(2px, -1px);
+  }
+
+  40% {
+    clip-path: inset(40% 0 50% 0);
+    transform: translate(-2px, 2px);
+  }
+
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(2px, -2px);
+  }
+
+  80% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-1px, 1px);
+  }
+
+  100% {
+    clip-path: inset(50% 0 30% 0);
+    transform: translate(1px, -1px);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(2px, -1px);
+  }
+
+  20% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    clip-path: inset(30% 0 20% 0);
+    transform: translate(2px, 1px);
+  }
+
+  60% {
+    clip-path: inset(15% 0 80% 0);
+    transform: translate(-1px, -2px);
+  }
+
+  80% {
+    clip-path: inset(55% 0 10% 0);
+    transform: translate(1px, 2px);
+  }
+
+  100% {
+    clip-path: inset(40% 0 30% 0);
+    transform: translate(-2px, 1px);
+  }
+}
+
+Appending Hologram Profile CSS to globals.css
+
+/* Hologram Profile Effect */
+.hologram-scanline {
+  background: linear-gradient(to bottom,
+      transparent 50%,
+      rgba(6, 182, 212, 0.1) 51%,
+      rgba(6, 182, 212, 0.1) 52%,
+      transparent 53%);
+  background-size: 100% 10px;
+  animation: scanline 1s linear infinite;
+}
+
+.profile-glitch {
+  position: relative;
+}
+
+.profile-glitch::before,
+.profile-glitch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  opacity: 0.5;
+  mix-blend-mode: hard-light;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.profile-glitch:hover::before {
+  animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
+  background-image: inherit;
+  filter: hue-rotate(90deg);
+  opacity: 0.7;
+}
+
+.profile-glitch:hover::after {
+  animation: glitch-anim-2 0.4s infinite linear alternate-reverse;
+  background-image: inherit;
+  filter: hue-rotate(180deg);
+  opacity: 0.7;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
 }

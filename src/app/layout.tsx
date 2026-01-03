@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ColorProvider } from '@/context/color-context'
 
 export const metadata: Metadata = {
   title: 'Anish Kumar',
@@ -20,7 +21,9 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
         >
-          {children}
+          <ColorProvider>
+             {children}
+          </ColorProvider>
         </ThemeProvider>
       </body>
     </html>

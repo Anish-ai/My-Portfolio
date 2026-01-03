@@ -8,6 +8,9 @@ import { useTheme } from "next-themes";
 import { projects } from "@/data/projects";
 
 
+import { useColor } from "@/context/color-context";
+import { THEME_COLORS } from "@/lib/constants";
+
 // --------------------------------------------------------
 // 1. 3D Project Card
 // --------------------------------------------------------
@@ -18,9 +21,10 @@ interface ProjectCard3DProps {
     rotation?: [number, number, number];
     onSelect: (index: number) => void;
     isDark: boolean;
+    themeColors: any;
 }
 
-const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelect, isDark }: ProjectCard3DProps) => {
+const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelect, isDark, themeColors }: ProjectCard3DProps) => {
   const ref = useRef<THREE.Group>(null);
   const [hovered, setHover] = useState(false);
   
@@ -46,7 +50,7 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
         <mesh position={[0, 0, -0.05]}>
             <planeGeometry args={[4.2, 2.5]} />
             <meshBasicMaterial 
-                color={hovered ? "#06b6d4" : (isDark ? "#000000" : "#ffffff")} 
+                color={hovered ? themeColors.primary : (isDark ? "#000000" : "#ffffff")} 
                 transparent 
                 opacity={hovered ? 0.3 : 0.6} 
                 side={THREE.DoubleSide}
@@ -65,18 +69,18 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
         {/* Tech Borders - Top/Bottom bars */}
         <mesh position={[0, 1.2, 0.02]}>
              <boxGeometry args={[4.2, 0.05, 0.05]} />
-             <meshBasicMaterial color="cyan" />
+             <meshBasicMaterial color={themeColors.primary} />
         </mesh>
         <mesh position={[0, -1.2, 0.02]}>
              <boxGeometry args={[4.2, 0.05, 0.05]} />
-             <meshBasicMaterial color="violet" />
+             <meshBasicMaterial color={themeColors.accent} />
         </mesh>
         
         {/* Title Tooltip (Only visible on hover or always?) -> Always visible but brighter on hover */}
         <Text
             position={[0, -1.6, 0.1]}
             fontSize={0.25}
-            color={hovered ? "#06b6d4" : (isDark ? "white" : "#1e293b")}
+            color={hovered ? themeColors.primary : (isDark ? "white" : "#1e293b")}
             anchorX="center"
             anchorY="top"
             outlineWidth={0.01}
@@ -93,7 +97,7 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
 // --------------------------------------------------------
 // 2. The Tunnel/Warp Scene
 // --------------------------------------------------------
-const WarpScene = ({ onSelectProject, isDark }: { onSelectProject: (index: number) => void, isDark: boolean }) => {
+const WarpScene = ({ onSelectProject, isDark, themeColors }: { onSelectProject: (index: number) => void, isDark: boolean, themeColors: any }) => {
     const scroll = useScroll();
 
     useFrame((state) => {
@@ -126,12 +130,12 @@ const WarpScene = ({ onSelectProject, isDark }: { onSelectProject: (index: numbe
             
             {/* Ambient Particles */}
             <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-            <Sparkles count={500} scale={[12, 12, 100]} size={2} speed={0.4} opacity={0.5} color={isDark ? "cyan" : "blue"} position={[0,0,-50]} />
+            <Sparkles count={500} scale={[12, 12, 100]} size={2} speed={0.4} opacity={0.5} color={themeColors.primary} position={[0,0,-50]} />
 
             {/* Lights */}
             <ambientLight intensity={2} />
-            <pointLight position={[10, 10, 10]} intensity={1} color="violet" />
-            <pointLight position={[-10, -10, -10]} intensity={1} color="cyan" />
+            <pointLight position={[10, 10, 10]} intensity={1} color={themeColors.accent} />
+            <pointLight position={[-10, -10, -10]} intensity={1} color={themeColors.primary} />
 
             {/* Project Cards */}
             {projects.map((project, i) => {
@@ -146,6 +150,7 @@ const WarpScene = ({ onSelectProject, isDark }: { onSelectProject: (index: numbe
                         rotation={[0, (i % 2 === 0 ? 0.25 : -0.25), 0]} // Face slightly inward
                         onSelect={onSelectProject}
                         isDark={isDark}
+                        themeColors={themeColors}
                     />
                 )
             })}
@@ -159,6 +164,8 @@ const WarpScene = ({ onSelectProject, isDark }: { onSelectProject: (index: numbe
 export default function ProjectTunnel({ onSelect }: { onSelect: (index: number) => void }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const { resolvedTheme } = useTheme();
+    const { colorTheme } = useColor();
+    const themeColors = THEME_COLORS[colorTheme] || THEME_COLORS.cyber;
     const isDark = resolvedTheme === "dark";
 
     useEffect(() => {
@@ -186,17 +193,20 @@ export default function ProjectTunnel({ onSelect }: { onSelect: (index: number) 
              {/* Canvas Container */}
              <div className="sticky top-0 h-screen w-full">
                 <Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>
-                    <color attach="background" args={[isDark ? '#030014' : '#ffffff']} />
+                    <color attach="background" args={[isDark ? themeColors.background : '#ffffff']} />
                     
                     <ScrollControls pages={projects.length * 0.5} damping={0.2} distance={1}>
-                        <WarpScene onSelectProject={onSelect} isDark={isDark} />
+                        <WarpScene onSelectProject={onSelect} isDark={isDark} themeColors={themeColors} />
                     </ScrollControls>
                     
                     {/* Post Processing can go here (Bloom, Glitch) */}
                 </Canvas>
                 
                 {/* Scroll Indicator */}
-                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-cyan-500/50 text-xs font-mono animate-bounce pointer-events-none">
+                <div 
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs font-mono animate-bounce pointer-events-none transition-colors duration-300"
+                    style={{ color: themeColors.primary }}
+                >
                     SCROLL TO EXPLORE :: DRAG TO NAVIGATE
                 </div>
              </div>

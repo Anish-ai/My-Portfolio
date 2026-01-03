@@ -16,6 +16,7 @@ const navItems = [
 ]
 
 import ThemeToggle from "./ui/theme-toggle"
+import ThemePalette from "./ui/theme-palette"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,7 +36,7 @@ export default function Navbar() {
     >
         {/* Scanning Line Effect at bottom of nav */}
         <motion.div 
-            className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent w-full"
+            className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent w-full"
             animate={{ x: ['-100%', '100%'] }}
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             style={{ opacity: useTransform(scrollY, [0, 50], [0, 0.5]) }}
@@ -54,7 +55,7 @@ export default function Navbar() {
               <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground hidden sm:block font-mono">
                 ANISH.DEV
               </span>
-              <span className="text-[9px] text-cyan-500 font-mono tracking-widest hidden sm:block">SYSTEM_ONLINE</span>
+              <span className="text-[9px] text-primary font-mono tracking-widest hidden sm:block">SYSTEM_ONLINE</span>
           </div>
         </motion.div>
 
@@ -76,10 +77,10 @@ export default function Navbar() {
                         className="relative px-4 py-2 group block cursor-pointer"
                     >
                         {/* Target Lock Brackets (Active/Hover) */}
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 text-cyan-500 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 font-mono text-xs">
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 font-mono text-xs">
                             [
                         </span>
-                        <span className="absolute right-0 top-1/2 -translate-y-1/2 text-cyan-500 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 font-mono text-xs">
+                        <span className="absolute right-0 top-1/2 -translate-y-1/2 text-primary opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 font-mono text-xs">
                             ]
                         </span>
 
@@ -93,13 +94,15 @@ export default function Navbar() {
           ))}
           
           {/* Desktop Theme Toggle */}
-          <div className="ml-6 pl-6 border-l border-border/50">
+          <div className="ml-6 pl-6 border-l border-border/50 flex items-center gap-2">
+             <ThemePalette />
              <ThemeToggle />
           </div>
         </div>
 
         {/* Mobile Navigation Toggle */}
         <div className="md:hidden flex items-center gap-4">
+          <ThemePalette />
           <ThemeToggle />
           <MagneticButton>
             <button
@@ -107,7 +110,7 @@ export default function Navbar() {
                 className="text-muted-foreground hover:text-foreground transition-colors p-2"
                 aria-label="Toggle Menu"
             >
-                {isOpen ? <X className="text-cyan-400" size={24} /> : <Menu size={24} />}
+                {isOpen ? <X className="text-primary" size={24} /> : <Menu size={24} />}
             </button>
           </MagneticButton>
         </div>
@@ -120,7 +123,7 @@ export default function Navbar() {
           animate={{ opacity: 1, height: "100vh" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="md:hidden fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl border-t border-cyan-500/20 overflow-hidden z-40"
+          className="md:hidden fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl border-t border-primary/20 overflow-hidden z-40"
         >
           {/* Tech decoration mobile */}
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -140,7 +143,7 @@ export default function Navbar() {
                   offset={-70}
                   duration={800}
                   onClick={() => setIsOpen(false)}
-                  className="text-3xl font-mono tracking-tighter text-muted-foreground hover:text-cyan-400 cursor-pointer transition-colors block py-2"
+                  className="text-3xl font-mono tracking-tighter text-muted-foreground hover:text-primary cursor-pointer transition-colors block py-2"
                 >
                    <GlitchText text={`< ${item.name} />`} className="inline-block" />
                 </ScrollLink>

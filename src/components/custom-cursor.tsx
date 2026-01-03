@@ -2,10 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useColor } from "@/context/color-context"
+import { THEME_COLORS } from "@/lib/constants"
+
+function hexToRgba(hex: string, alpha: number) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 export default function CustomCursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const { colorTheme } = useColor();
+  const themeColors = THEME_COLORS[colorTheme] || THEME_COLORS.cyber;
   
   // Smooth spring physics for the outer ring
   // mass: 0.1 makes it very light and responsive
@@ -159,50 +170,50 @@ export default function CustomCursor() {
     default: {
       height: 24,
       width: 24,
-      backgroundColor: "rgba(14, 165, 233, 0.2)",  // Bright ocean blue with transparency
-      border: "2px solid rgba(14, 165, 233, 0.8)", // Solid border for visibility
+      backgroundColor: hexToRgba(themeColors.primary, 0.2),
+      border: `2px solid ${hexToRgba(themeColors.primary, 0.8)}`,
       scale: isClicking ? 0.8 : 1,
     },
     button: {
       height: 60,
       width: 60,
-      backgroundColor: "rgba(139, 92, 246, 0.15)", // Vivid purple
-      border: "2px solid rgba(139, 92, 246, 0.9)",
+      backgroundColor: hexToRgba(themeColors.accent, 0.15),
+      border: `2px solid ${hexToRgba(themeColors.accent, 0.9)}`,
       scale: isClicking ? 0.85 : 1,
     },
     link: {
       height: 40,
       width: 40,
-      backgroundColor: "rgba(217, 70, 239, 0.15)", // Magenta pink
-      border: "2px solid rgba(217, 70, 239, 0.9)",
+      backgroundColor: hexToRgba(themeColors.primary, 0.15),
+      border: `2px solid ${hexToRgba(themeColors.primary, 0.9)}`,
       scale: isClicking ? 0.9 : 1,
     },
     project: {
       height: 80,
       width: 80,
-      backgroundColor: "rgba(139, 92, 246, 0.12)",
-      border: "2px solid rgba(139, 92, 246, 0.9)",
+      backgroundColor: hexToRgba(themeColors.accent, 0.12),
+      border: `2px solid ${hexToRgba(themeColors.accent, 0.9)}`,
       scale: isClicking ? 0.8 : 1,
     },
     skill: {
       height: 50,
       width: 50,
-      backgroundColor: "rgba(217, 70, 239, 0.12)",
-      border: "2px solid rgba(217, 70, 239, 0.9)",
+      backgroundColor: hexToRgba(themeColors.primary, 0.12),
+      border: `2px solid ${hexToRgba(themeColors.primary, 0.9)}`,
       scale: isClicking ? 0.9 : 1,
     },
     image: {
       height: 70,
       width: 70,
-      backgroundColor: "rgba(14, 165, 233, 0.12)",
-      border: "2px solid rgba(14, 165, 233, 0.9)",
+      backgroundColor: hexToRgba(themeColors.primary, 0.12),
+      border: `2px solid ${hexToRgba(themeColors.primary, 0.9)}`,
       scale: isClicking ? 0.85 : 1,
     },
     input: {
       height: 30,
       width: 30,
-      backgroundColor: "rgba(249, 115, 22, 0.12)", // Bright orange
-      border: "2px solid rgba(249, 115, 22, 0.9)",
+      backgroundColor: hexToRgba(themeColors.accent, 0.12),
+      border: `2px solid ${hexToRgba(themeColors.accent, 0.9)}`,
       scale: isClicking ? 0.8 : 1,
     },
   };
@@ -288,11 +299,11 @@ export default function CustomCursor() {
               height: 4,
               width: 4,
               backgroundColor: 
-                cursorVariant === "button" || cursorVariant === "project" ? "rgba(139, 92, 246, 1)" :
-                cursorVariant === "link" || cursorVariant === "skill" ? "rgba(217, 70, 239, 1)" :
-                cursorVariant === "image" ? "rgba(14, 165, 233, 1)" :
-                cursorVariant === "input" ? "rgba(249, 115, 22, 1)" :
-                "rgba(14, 165, 233, 1)",
+                cursorVariant === "button" || cursorVariant === "project" ? hexToRgba(themeColors.accent, 1) :
+                cursorVariant === "link" || cursorVariant === "skill" ? hexToRgba(themeColors.primary, 1) :
+                cursorVariant === "image" ? hexToRgba(themeColors.primary, 1) :
+                cursorVariant === "input" ? hexToRgba(themeColors.accent, 1) :
+                hexToRgba(themeColors.primary, 1),
               boxShadow: "0 0 5px rgba(255, 255, 255, 0.7)"
             }}
         />
@@ -318,10 +329,10 @@ export default function CustomCursor() {
             exit={{ opacity: 0, scale: 0.8 }}
             style={{ 
               color: 
-                cursorVariant === "button" || cursorVariant === "project" ? "rgba(139, 92, 246, 1)" :
-                cursorVariant === "link" || cursorVariant === "skill" ? "rgba(217, 70, 239, 1)" :
-                cursorVariant === "image" ? "rgba(14, 165, 233, 1)" :
-                "rgba(249, 115, 22, 1)",
+                cursorVariant === "button" || cursorVariant === "project" ? hexToRgba(themeColors.accent, 1) :
+                cursorVariant === "link" || cursorVariant === "skill" ? hexToRgba(themeColors.primary, 1) :
+                cursorVariant === "image" ? hexToRgba(themeColors.primary, 1) :
+                hexToRgba(themeColors.accent, 1),
               fontWeight: 600,
               textShadow: "0px 0px 2px rgba(255, 255, 255, 0.7)"
             }}

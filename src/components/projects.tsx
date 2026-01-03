@@ -32,9 +32,9 @@ export default function Projects() {
            transition={{ duration: 0.8 }}
          >
             <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-2">
-              PROJECTS <span className="text-cyan-600 dark:text-cyan-500">.LOG</span>
+              PROJECTS <span className="text-primary">.LOG</span>
             </h2>
-            <p className="text-cyan-700/60 dark:text-cyan-500/60 font-mono text-sm max-w-md">
+            <p className="text-primary/60 font-mono text-sm max-w-md">
                {"// SCROLL TO NAVIGATE HYPERSPACE"}
                <br/>
                {"// CLICK DATA CARD TO ACCESS FILES"}
@@ -57,16 +57,16 @@ export default function Projects() {
               animate={{ scale: 1, opacity: 1, rotateX: 0 }}
               exit={{ scale: 0.8, opacity: 0, rotateX: -20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-5xl h-full md:h-auto md:max-h-[90vh] flex flex-col md:flex-row bg-card border border-border overflow-hidden shadow-[0_0_100px_rgba(6,182,212,0.15)] group"
+              className="relative w-full max-w-5xl h-full md:h-auto md:max-h-[90vh] flex flex-col md:flex-row bg-card border border-border overflow-hidden shadow-[0_0_100px_var(--primary)] shadow-primary/15 group"
               style={{
                 clipPath: "polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%)" // Tech cut corner
               }}
               onClick={(e) => e.stopPropagation()}
             >
                {/* Holographic Border Overlay */}
-               <div className="absolute inset-0 border border-cyan-500/20 pointer-events-none z-20" />
-               <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-cyan-500/50 rounded-tr-xl pointer-events-none z-20" />
-               <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-cyan-500/50 rounded-bl-xl pointer-events-none z-20" />
+               <div className="absolute inset-0 border border-primary/20 pointer-events-none z-20" />
+               <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-primary/50 rounded-tr-xl pointer-events-none z-20" />
+               <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-primary/50 rounded-bl-xl pointer-events-none z-20" />
                
                {/* Close Button - Tech Style */}
                <button 
@@ -93,7 +93,7 @@ export default function Projects() {
                   
                   {/* Scanning Animation */}
                   <motion.div 
-                     className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent z-10"
+                     className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent z-10"
                      animate={{ top: ["-100%", "100%"] }}
                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                   />
@@ -107,7 +107,7 @@ export default function Projects() {
                                STATUS: {activeProject.status}
                             </div>
                          )}
-                         <div className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/40 text-cyan-700 dark:text-cyan-400 text-[10px] font-mono tracking-wider uppercase">
+                         <div className="px-3 py-1 bg-primary/10 border border-primary/40 text-primary text-[10px] font-mono tracking-wider uppercase">
                             ID: PRJ-{activeProjectIndex !== null ? activeProjectIndex.toString().padStart(3, '0') : '000'}
                          </div>
                       </div>
@@ -124,15 +124,15 @@ export default function Projects() {
                   <div className="flex-1 overflow-y-auto pr-2 space-y-8 scrollbar-hide">
                       {/* Tech Stack */}
                       <div>
-                         <h4 className="flex items-center gap-2 text-cyan-700/60 dark:text-cyan-500/60 text-[10px] font-mono uppercase tracking-widest mb-4">
-                            <span className="w-2 h-2 bg-cyan-500/40" />
+                         <h4 className="flex items-center gap-2 text-primary/60 text-[10px] font-mono uppercase tracking-widest mb-4">
+                            <span className="w-2 h-2 bg-primary/40" />
                             System Modules
                          </h4>
                          <div className="flex flex-wrap gap-2">
                            {activeProject.skills.map((skill) => (
-                              <div key={skill} className="group/tag relative px-3 py-1.5 bg-secondary/50 border border-border hover:border-cyan-500/50 transition-colors">
-                                 <div className="absolute inset-0 bg-cyan-500/5 scale-x-0 group-hover/tag:scale-x-100 transition-transform origin-left" />
-                                 <span className="relative text-xs text-zinc-700 dark:text-muted-foreground font-mono group-hover/tag:text-cyan-600 dark:group-hover/tag:text-cyan-300">
+                              <div key={skill} className="group/tag relative px-3 py-1.5 bg-secondary/50 border border-border hover:border-primary/50 transition-colors">
+                                 <div className="absolute inset-0 bg-primary/5 scale-x-0 group-hover/tag:scale-x-100 transition-transform origin-left" />
+                                 <span className="relative text-xs text-zinc-700 dark:text-muted-foreground font-mono group-hover/tag:text-primary">
                                     {skill}
                                  </span>
                               </div>
@@ -142,8 +142,8 @@ export default function Projects() {
 
                       {/* Description */}
                       <div>
-                         <h4 className="flex items-center gap-2 text-cyan-700/60 dark:text-cyan-500/60 text-[10px] font-mono uppercase tracking-widest mb-4">
-                            <span className="w-2 h-2 bg-cyan-500/40" />
+                         <h4 className="flex items-center gap-2 text-primary/60 text-[10px] font-mono uppercase tracking-widest mb-4">
+                            <span className="w-2 h-2 bg-primary/40" />
                             Mission Brief
                          </h4>
                          <p className="text-sm md:text-base text-zinc-700 dark:text-muted-foreground leading-relaxed font-light border-l-2 border-border pl-4">
@@ -156,14 +156,14 @@ export default function Projects() {
                          <div className="grid gap-3">
                             {activeProject.links.live && (
                                <a href={activeProject.links.live} target="_blank" rel="noreferrer" 
-                                  className="relative group p-4 bg-cyan-900/20 border border-cyan-500/30 hover:bg-cyan-500/10 hover:border-cyan-500/80 transition-all flex items-center justify-between overflow-hidden"
+                                  className="relative group p-4 bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/80 transition-all flex items-center justify-between overflow-hidden"
                                >
-                                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
-                                  <span className="relative flex items-center gap-3 text-cyan-700 dark:text-cyan-400 font-mono text-sm tracking-wider uppercase">
+                                  <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
+                                  <span className="relative flex items-center gap-3 text-primary font-mono text-sm tracking-wider uppercase">
                                      <ExternalLink size={16} />
                                      Initialize Demo
                                   </span>
-                                  <div className="relative w-2 h-2 bg-cyan-500 rounded-full shadow-[0_0_10px_cyan]" />
+                                  <div className="relative w-2 h-2 bg-primary rounded-full shadow-[0_0_10px_var(--primary)] text-shadow-glow" />
                                </a>
                             )}
 

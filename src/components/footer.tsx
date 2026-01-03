@@ -7,11 +7,15 @@ import { PerspectiveCamera, Plane } from "@react-three/drei"
 import * as THREE from "three"
 import { socialLinks } from "@/data/social-links"
 import { personalInfo } from "@/data/personal-info"
+import { useColor } from "@/context/color-context"
+import { THEME_COLORS } from "@/lib/constants"
 
 // --- 3D GRID COMPONENT ---
 
 const MovingGrid = () => {
     const gridRef = useRef<THREE.Mesh>(null)
+    const { colorTheme } = useColor()
+    const themeColors = THEME_COLORS[colorTheme] || THEME_COLORS.cyber
     
     useFrame((state) => {
         if (gridRef.current) {
@@ -25,8 +29,8 @@ const MovingGrid = () => {
              <Plane args={[60, 60, 40, 40]} ref={gridRef}>
                 <meshStandardMaterial 
                     wireframe 
-                    color="#06b6d4" 
-                    emissive="#06b6d4"
+                    color={themeColors.primary} 
+                    emissive={themeColors.primary}
                     emissiveIntensity={0.5}
                     transparent
                     opacity={0.15}
@@ -36,7 +40,7 @@ const MovingGrid = () => {
              <Plane args={[60, 60, 20, 20]} position={[0, 0, -0.1]} rotation={[0, 0, 0.5]}>
                 <meshBasicMaterial 
                     wireframe 
-                    color="#8b5cf6" 
+                    color={themeColors.accent} 
                     transparent 
                     opacity={0.05} 
                 />
@@ -109,22 +113,22 @@ export default function Footer() {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-card/40 backdrop-blur-xl border border-border/30 rounded-2xl p-8 md:p-12 mb-12 shadow-[0_0_50px_rgba(6,182,212,0.1)] relative overflow-hidden"
+                    className="bg-card/40 backdrop-blur-xl border border-border/30 rounded-2xl p-8 md:p-12 mb-12 shadow-[0_0_50px_var(--primary)] shadow-primary/10 relative overflow-hidden"
                 >
                     {/* Panel Decor */}
                     <div className="absolute top-0 right-0 p-4 opacity-20">
                          <div className="flex gap-1 mb-1 justify-end">
-                             <div className="w-8 h-1 bg-cyan-500" />
-                             <div className="w-2 h-1 bg-cyan-500" />
+                             <div className="w-8 h-1 bg-primary" />
+                             <div className="w-2 h-1 bg-primary" />
                          </div>
-                         <div className="text-[10px] font-mono text-cyan-500 text-right">SYS_READY</div>
+                         <div className="text-[10px] font-mono text-primary text-right">SYS_READY</div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         
                         {/* BRAND / INFO */}
                         <div className="lg:col-span-5 space-y-6">
-                            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-cyan-500 to-muted-foreground tracking-tighter">
+                            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-primary to-muted-foreground tracking-tighter">
                                 {personalInfo.name.toUpperCase()}
                             </h2>
                             <p className="text-zinc-600 dark:text-muted-foreground leading-relaxed max-w-sm font-light">
@@ -162,7 +166,7 @@ export default function Footer() {
                                             href={link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-10 h-10 flex items-center justify-center bg-foreground/5 hover:bg-cyan-500/20 border border-foreground/10 hover:border-cyan-500/50 rounded-lg text-zinc-600 dark:text-muted-foreground hover:text-cyan-600 dark:hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm"
+                                            className="w-10 h-10 flex items-center justify-center bg-foreground/5 hover:bg-primary/20 border border-foreground/10 hover:border-primary/50 rounded-lg text-zinc-600 dark:text-muted-foreground hover:text-primary transition-all duration-300 backdrop-blur-sm"
                                         >
                                             <link.icon size={18} />
                                         </a>
@@ -172,11 +176,11 @@ export default function Footer() {
 
                             <button 
                                 onClick={() => window.location.href = `mailto:${personalInfo.email}`}
-                                className="group relative px-6 py-3 bg-foreground text-background font-bold font-mono text-sm tracking-wider uppercase hover:bg-cyan-400 dark:hover:bg-cyan-500 transition-colors clip-path-polygon"
+                                className="group relative px-6 py-3 bg-foreground text-background font-bold font-mono text-sm tracking-wider uppercase hover:bg-primary transition-colors clip-path-polygon"
                                 style={{ clipPath: "polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)" }}
                             >
                                 <span className="relative z-10">Initialize Contact</span>
-                                <div className="absolute inset-0 bg-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left -z-0 mix-blend-multiply" />
+                                <div className="absolute inset-0 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left -z-0 mix-blend-multiply" />
                             </button>
                         </div>
 

@@ -32,13 +32,13 @@ export default function GlitchText({ text, href, className, onClick }: GlitchTex
 
     const content = (
         <span className="flex items-center gap-2">
-             <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-cyan-400 transition-colors rotate-45" />
+             <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-primary transition-colors rotate-45" />
              {displayText}
         </span>
     )
     
     const classes = cn(
-        "font-mono text-gray-400 hover:text-cyan-400 transition-colors uppercase tracking-wider text-sm group cursor-pointer", 
+        "font-mono text-gray-400 hover:text-primary transition-colors uppercase tracking-wider text-sm group cursor-pointer", 
         className
     )
 

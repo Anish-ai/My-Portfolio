@@ -4,9 +4,14 @@ import Image from "next/image"
 import { Github, ExternalLink, Smartphone, Apple } from "lucide-react"
 import type { ProjectType } from "@/types"
 import { useState } from "react"
+import { useColor } from "@/context/color-context"
+import { THEME_COLORS } from "@/lib/constants"
+import { cn } from "@/lib/utils"
 
 export default function ProjectCard({ project }: { project: ProjectType }) {
   const [isHovered, setIsHovered] = useState(false);
+  const { colorTheme } = useColor()
+  const themeColors = THEME_COLORS[colorTheme] || THEME_COLORS.cyber
 
   // Animation variants for the skill icons
   const skillVariants = {
@@ -37,11 +42,11 @@ export default function ProjectCard({ project }: { project: ProjectType }) {
 
   return (
     <motion.div
-      className="relative w-full h-96 bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500 transition-all group"
+      className="relative w-full h-96 bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary transition-all group"
       whileHover={{
         scale: 1.05,
         rotate: 2,
-        boxShadow: "0 0 30px rgba(168, 85, 247, 0.5)",
+        boxShadow: `0 0 30px ${themeColors.primary}80`, // 50% opacity
       }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -76,7 +81,7 @@ export default function ProjectCard({ project }: { project: ProjectType }) {
             className="text-2xl font-bold text-white mb-2"
             initial={false}
             animate={isHovered ? { 
-              textShadow: "0 0 8px rgba(168, 85, 247, 0.8)",
+              textShadow: `0 0 8px ${themeColors.primary}CC`,
               color: "#f3f4f6"
             } : {}}
           >
@@ -84,10 +89,10 @@ export default function ProjectCard({ project }: { project: ProjectType }) {
           </motion.h3>
           {project.status && (
             <motion.span 
-              className="text-xs px-2 py-1 rounded-full bg-purple-600 text-white"
+              className="text-xs px-2 py-1 rounded-full bg-primary text-secondary-foreground"
               whileHover={{ 
                 scale: 1.1, 
-                backgroundColor: "#8B5CF6" 
+                backgroundColor: themeColors.accent 
               }}
               whileTap={{ scale: 0.95 }}
             >
@@ -176,7 +181,7 @@ export default function ProjectCard({ project }: { project: ProjectType }) {
               initial="initial"
               whileHover="hover"
               whileTap="tap"
-              className="p-2 bg-purple-600 rounded-full hover:bg-purple-500 transition-colors"
+              className={cn("p-2 rounded-full transition-colors", "bg-primary text-secondary-foreground hover:bg-primary/90")}
               title="Live Demo"
             >
               <ExternalLink size={20} />

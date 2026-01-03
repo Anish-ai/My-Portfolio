@@ -5,6 +5,8 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { MeshDistortMaterial, Float } from "@react-three/drei"
 import * as THREE from "three"
 import { useTheme } from "next-themes";
+import { useColor } from "@/context/color-context"
+import { THEME_COLORS } from "@/lib/constants"
 
 function FloatingMesh({ 
   position, 
@@ -49,7 +51,7 @@ function FloatingMesh({
       >
         <icosahedronGeometry args={[1, 0]} />
         <MeshDistortMaterial
-          color={hovered ? "#d946ef" : color}
+          color={hovered ? "#ffffff" : color} // Hover white for reaction
           distort={0.4}
           speed={2}
           roughness={0}
@@ -64,24 +66,28 @@ function FloatingMesh({
 
 export default function FloatingShapes() {
   const { resolvedTheme } = useTheme()
+  const { colorTheme } = useColor()
   const isDark = resolvedTheme === "dark"
 
   // Generate random shapes
-  const shapes = useMemo(() => Array.from({ length: 15 }).map((_, i) => ({
+  const shapes = useMemo(() => {
+    const activePalette = THEME_COLORS[colorTheme] || THEME_COLORS.cyber
+    
+    return Array.from({ length: 15 }).map((_, i) => ({
     width: 1,
     position: [
       (Math.random() - 0.5) * 15, // Spread x
       (Math.random() - 0.5) * 10,  // Spread y
       (Math.random() - 0.5) * 5    // Spread z
     ] as [number, number, number],
-    // Dark Mode: Violet/Sky (Neon) | Light Mode: Violet/Blue (Deep but vibrant)
+    // Primary vs Accent based on index
     color: i % 2 === 0 
-      ? (isDark ? "#8b5cf6" : "#7c3aed") // Violet-500 vs Violet-600
-      : (isDark ? "#0ea5e9" : "#0284c7"), // Sky-500 vs Sky-600
+      ? activePalette.primary
+      : activePalette.accent,
     scale: 0.2 + Math.random() * 0.5,
     speed: 1 + Math.random(),
     factor: 0.5 + Math.random(),
-  })), [isDark])
+  }))}, [colorTheme])
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0">
