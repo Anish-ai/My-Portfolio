@@ -21,7 +21,11 @@ interface ProjectCard3DProps {
     rotation?: [number, number, number];
     onSelect: (index: number) => void;
     isDark: boolean;
-    themeColors: any;
+    themeColors: {
+        primary: string;
+        accent: string;
+        background: string;
+    };
 }
 
 const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelect, isDark, themeColors }: ProjectCard3DProps) => {
@@ -97,7 +101,7 @@ const ProjectCard3D = ({ project, position, index, rotation = [0, 0, 0], onSelec
 // --------------------------------------------------------
 // 2. The Tunnel/Warp Scene
 // --------------------------------------------------------
-const WarpScene = ({ onSelectProject, isDark, themeColors }: { onSelectProject: (index: number) => void, isDark: boolean, themeColors: any }) => {
+const WarpScene = ({ onSelectProject, isDark, themeColors }: { onSelectProject: (index: number) => void, isDark: boolean, themeColors: { primary: string; accent: string; background: string } }) => {
     const scroll = useScroll();
 
     useFrame((state) => {

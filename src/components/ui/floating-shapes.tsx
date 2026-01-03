@@ -67,7 +67,6 @@ function FloatingMesh({
 export default function FloatingShapes() {
   const { resolvedTheme } = useTheme()
   const { colorTheme } = useColor()
-  const isDark = resolvedTheme === "dark"
 
   // Generate random shapes
   const shapes = useMemo(() => {

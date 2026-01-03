@@ -5,7 +5,7 @@ import { motion, useSpring, useTransform, useMotionValue, useMotionTemplate, Mot
 import Typed from "typed.js"
 import Image from "next/image"
 import { personalInfo } from "@/data/personal-info"
-import { Crosshair, Cpu, Wifi, Activity, Smartphone, Github } from "lucide-react"
+import { Crosshair, Activity, Github } from "lucide-react"
 import { Link as ScrollLink } from "react-scroll"
 import FloatingShapes from "./ui/floating-shapes"
 import MagneticButton from "./ui/magnetic-button"
@@ -149,7 +149,7 @@ export default function Hero() {
     const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let iteration = 0;
     const interval = setInterval(() => {
-        setDisplayText(prev => 
+        setDisplayText(() => 
             personalInfo.name.split("").map((letter, index) => {
                 if(index < iteration) {
                     return personalInfo.name[index];
