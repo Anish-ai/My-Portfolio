@@ -4,7 +4,6 @@ import { useRef, useMemo, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { MeshDistortMaterial, Float } from "@react-three/drei"
 import * as THREE from "three"
-import { useTheme } from "next-themes";
 import { useColor } from "@/context/color-context"
 import { THEME_COLORS } from "@/lib/constants"
 
