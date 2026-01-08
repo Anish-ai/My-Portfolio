@@ -93,7 +93,7 @@ import GlitchText from "@/components/ui/glitch-text"
 
 export default function Footer() {
     return (
-        <footer className="relative w-full overflow-hidden bg-background pt-20 pb-10">
+        <footer id="footer" className="relative w-full overflow-hidden bg-background pt-20 pb-10">
             {/* 3D BACKGROUND CANVAS */}
             <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
                 <Canvas>
