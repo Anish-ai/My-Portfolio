@@ -1,6 +1,7 @@
 import Hero from "@/components/hero"
 import Navbar from "@/components/navbar"
 import Projects from "@/components/projects"
+import Experience from "@/components/experience"
 import Skills from "@/components/skills"
 import Footer from "@/components/footer"
 import CustomCursor from "@/components/custom-cursor"
@@ -12,6 +13,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Projects />
+      <Experience />
       <Skills />
       <Footer />
     </main>

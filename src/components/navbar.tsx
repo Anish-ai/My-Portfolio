@@ -11,6 +11,7 @@ import GlitchText from "./ui/glitch-text"
 const navItems = [
   { name: "Home", to: "hero" },
   { name: "Projects", to: "projects" },
+  { name: "Experience", to: "experience" },
   { name: "Skills", to: "skills" },
   { name: "Contact", to: "footer" },
 ]

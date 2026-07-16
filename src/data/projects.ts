@@ -3,6 +3,18 @@ import type { ProjectType } from "@/types";
 export const projects: ProjectType[] = [
   {
     id: 1,
+    title: "Facility Routing Engine",
+    skills: ["Next.js", "React 19", "TypeScript", "Zustand", "Canvas API", "A*/Dijkstra", "Vercel"],
+    links: {
+      github: "https://github.com/Anish-ai/facility-routing-engine",
+      live: "https://evacu-aid-routing-engine.vercel.app/"
+    },
+    description:
+      "An indoor navigation system modeled as a weighted graph, implementing A* and Dijkstra algorithms for optimal pathfinding. Features emergency-aware routing for fire, medical, security, smoke, and hazmat scenarios with dynamic rerouting around hazardous zones. Includes constraint-based routing rules such as fire-safe routing, emergency-zone avoidance, and stair preference over lifts during fire scenarios.",
+    thumbnail: "/stack/facility-routing.png",
+  },
+  {
+    id: 2,
     title: "OneIITP",
     skills: ["React Native", "Firebase", "Microsoft Azure", "Expo", "Vercel"],
     links: {
@@ -15,7 +27,7 @@ export const projects: ProjectType[] = [
     thumbnail: "/stack/oneiitp.png",
   },
   {
-    id: 2,
+    id: 3,
     title: "Mock Interview AI",
     skills: ["Next.js", "Tailwind CSS", "TypeScript", "Gemini API", "Murf AI", "WebRTC", "face-api.js"],
     links: {
@@ -27,7 +39,7 @@ export const projects: ProjectType[] = [
     thumbnail: "/stack/mockinterview.png",
   },
   {
-    id: 3,
+    id: 4,
     title: "WinRegi",
     skills: ["Python", "PyQt", "SQLite", "Windows API", "Registry", "NLP", "Machine Learning"],
     links: {
@@ -38,7 +50,7 @@ export const projects: ProjectType[] = [
     thumbnail: "/stack/winregi.png",
   },
   {
-    id: 4,
+    id: 5,
     title: "CollabNest",
     skills: ["Next.js", "TypeScript", "Prisma", "Firebase", "Node.js", "PostgreSQL", "WebSockets", "Tailwind CSS"],
     links: {
@@ -50,7 +62,7 @@ export const projects: ProjectType[] = [
     status: "In Progress"
   },
   {
-    id: 5,
+    id: 6,
     title: "VaultX",
     skills: ["Next.js", "Node.js", "Express.js", "PostgreSQL", "Prisma", "Tailwind CSS", "JWT", "Nodemailer"],
     links: {

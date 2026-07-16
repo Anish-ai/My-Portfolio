@@ -29,3 +29,13 @@ export type SocialLinkType = {
   icon: LucideIcon
 }
 
+export type ExperienceType = {
+  id: number
+  company: string
+  role: string
+  location: string
+  period: string
+  current?: boolean
+  highlights: string[]
+}
+

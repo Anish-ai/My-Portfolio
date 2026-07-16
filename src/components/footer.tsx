@@ -152,6 +152,7 @@ export default function Footer() {
                             <h3 className="text-sm font-bold text-foreground mb-2 uppercase tracking-widest border-b border-border/30 pb-2 w-max">Coordinates</h3>
                             <GlitchText text="Home Base" href="#hero" />
                             <GlitchText text="Project Logs" href="#projects" />
+                            <GlitchText text="Mission Log" href="#experience" />
                             <GlitchText text="Skill Database" href="#skills" />
                         </div>
 
