@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useRef, type MouseEvent } from "react"
+import { useState, useCallback, type MouseEvent } from "react"
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion"
 import { skills, type SkillType } from "@/data/skills"
 import Image from "next/image"
