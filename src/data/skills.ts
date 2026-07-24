@@ -3,13 +3,61 @@ export type { SkillType }
 
 export const SKILL_CATEGORIES: Record<string, string[]> = {
   All: [],
-  Languages: ["C++", "Python", "JavaScript", "TypeScript", "Java"],
-  Frontend: ["React", "Next.js", "Tailwind CSS", "Expo"],
-  Backend: ["Node.js", "PostgreSQL", "MySQL", "MongoDB", "Firebase", "Prisma"],
-  "AI / ML": ["TensorFlow", "PyTorch"],
-  "Cloud & DevOps": ["AWS", "GCP", "Azure", "Docker", "Kubernetes", "Git", "GitHub", "Vercel", "Postman"],
-  Other: ["Figma", "Linux", "Bitcoin"],
-}
+
+  Languages: [
+    "C++",
+    "Python",
+    "Java",
+    "JavaScript",
+    "TypeScript",
+  ],
+
+  Frontend: [
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    "Expo",
+  ],
+
+  Backend: [
+    "Node.js",
+    "Prisma",
+  ],
+
+  Databases: [
+    "PostgreSQL",
+    "MySQL",
+  ],
+
+  "AI / ML": [
+    "TensorFlow",
+    "PyTorch",
+  ],
+
+  "Cloud & DevOps": [
+    "AWS",
+    "Azure",
+    "GCP",
+    "Docker",
+    "Kubernetes",
+    "Vercel",
+  ],
+
+  Tools: [
+    "Git",
+    "GitHub",
+    "Postman",
+    "Figma",
+  ],
+
+  OS: [
+    "Linux",
+  ],
+
+  Blockchain: [
+    "Bitcoin",
+  ],
+};
 
 export const skills: SkillType[] = [
   {
