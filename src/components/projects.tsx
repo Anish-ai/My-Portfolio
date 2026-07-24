@@ -126,7 +126,7 @@ function ReadmeReveal({ project }: { project: ProjectType }) {
 }
 
 // ─── COMMAND HISTORY ENTRY ───────────────────────────────
-function CatCommandEntry({ project, isTyping }: { project: ProjectType; isTyping: boolean }) {
+function CatCommandEntry({ project }: { project: ProjectType }) {
   const slug = project.title.toLowerCase().replace(/\s+/g, "-")
   const cmd = `cat ${slug}/README.md`
   const typed = useTypewriter(cmd, 22, true)
@@ -318,7 +318,6 @@ export default function Projects() {
                 <CatCommandEntry
                   key={selectedProject}
                   project={projects[selectedProject]}
-                  isTyping
                 />
               )}
 
