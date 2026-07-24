@@ -1,23 +1,10 @@
 "use client"
 
-import { useState, useCallback, useRef, type MouseEvent } from "react"
-import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion"
-import { skills, type SkillType } from "@/data/skills"
+import { useState, type MouseEvent } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { skills, SKILL_CATEGORIES, type SkillType } from "@/data/skills"
 import Image from "next/image"
-import { useColor } from "@/context/color-context"
-import { THEME_COLORS } from "@/lib/constants"
 import { X } from "lucide-react"
-
-// --- CATEGORY MAPPING ---
-const CATEGORIES: Record<string, string[]> = {
-  "All": [],
-  "Languages": ["C++", "Python", "JavaScript", "TypeScript"],
-  "Frontend": ["React", "Next.js", "Tailwind CSS", "Expo"],
-  "Backend": ["Node.js", "PostgreSQL", "MySQL", "MongoDB", "Firebase", "Prisma"],
-  "AI / ML": ["TensorFlow", "PyTorch"],
-  "Cloud & DevOps": ["AWS", "GCP", "Docker", "Git", "GitHub", "Vercel", "Postman"],
-  "Other": ["Figma", "Linux", "Bitcoin"],
-}
 
 // --- CIRCULAR PROGRESS RING ---
 const ProgressRing = ({ percentage, size = 48, strokeWidth = 3, isActive = false }: {
@@ -141,53 +128,19 @@ export default function Skills() {
   const [activeSkill, setActiveSkill] = useState<SkillType | null>(null)
   const [activeCategory, setActiveCategory] = useState("All")
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const handleMouseMove = useCallback(({ clientX, clientY }: MouseEvent) => {
-    const { left, top } = (document.getElementById('skills') as HTMLElement)?.getBoundingClientRect() || { left: 0, top: 0 }
-    mouseX.set(clientX - left)
-    mouseY.set(clientY - top)
-  }, [mouseX, mouseY])
-
   const filteredSkills = activeCategory === "All"
     ? skills
-    : skills.filter(s => CATEGORIES[activeCategory]?.includes(s.name))
-
-  const hexToRgba = (hex: string, alpha: number) => {
-    const r = parseInt(hex.slice(1, 3), 16)
-    const g = parseInt(hex.slice(3, 5), 16)
-    const b = parseInt(hex.slice(5, 7), 16)
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`
-  }
-
-  const { colorTheme } = useColor()
-  const themeColors = THEME_COLORS[colorTheme] || THEME_COLORS.cyber
+    : skills.filter(s => SKILL_CATEGORIES[activeCategory]?.includes(s.name))
 
   return (
     <section
       id="skills"
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen py-20 w-full bg-background flex flex-col items-center overflow-hidden group/skills"
+      className="relative min-h-screen py-20 w-full flex flex-col items-center group/skills"
     >
 
       {/* Background Decor */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-[length:50px_50px]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background z-0" />
-
-      {/* SPOTLIGHT EFFECT */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-0 opacity-0 group-hover/skills:opacity-100 transition-opacity duration-300"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              ${hexToRgba(themeColors.primary, 0.12)},
-              transparent 80%
-            )
-          `
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-transparent z-0" />
 
       {/* Moving Scan Line */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -218,9 +171,9 @@ export default function Skills() {
       {/* Category Tabs */}
       <div className="relative z-10 mb-10 px-4">
         <div className="flex flex-wrap justify-center gap-2">
-          {Object.keys(CATEGORIES).map((category) => {
+          {Object.keys(SKILL_CATEGORIES).map((category) => {
             const isActive = activeCategory === category
-            const count = category === "All" ? skills.length : CATEGORIES[category].length
+            const count = category === "All" ? skills.length : SKILL_CATEGORIES[category].length
             return (
               <motion.button
                 key={category}

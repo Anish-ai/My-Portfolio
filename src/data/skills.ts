@@ -1,12 +1,22 @@
 import type { SkillType } from "@/types"
 export type { SkillType }
 
+export const SKILL_CATEGORIES: Record<string, string[]> = {
+  All: [],
+  Languages: ["C++", "Python", "JavaScript", "TypeScript", "Java"],
+  Frontend: ["React", "Next.js", "Tailwind CSS", "Expo"],
+  Backend: ["Node.js", "PostgreSQL", "MySQL", "MongoDB", "Firebase", "Prisma"],
+  "AI / ML": ["TensorFlow", "PyTorch"],
+  "Cloud & DevOps": ["AWS", "GCP", "Azure", "Docker", "Kubernetes", "Git", "GitHub", "Vercel", "Postman"],
+  Other: ["Figma", "Linux", "Bitcoin"],
+}
+
 export const skills: SkillType[] = [
   {
     name: "C++",
     icon: "/stack/Cpp.svg",
     proficiency: "Advanced",
-    percentage: 89,
+    percentage: 96,
     description:
       "Proficient in developing efficient algorithms and system-level applications with C++.",
   },
@@ -31,13 +41,13 @@ export const skills: SkillType[] = [
     percentage: 96,
     description: "Building scalable and maintainable applications with TypeScript.",
   },
-  // {
-  //   name: "Java",
-  //   icon: "/stack/java.svg",
-  //   proficiency: "Beginner",
-  //   percentage: 45,
-  //   description: "Developing enterprise-level applications with Java.",
-  // },
+  {
+    name: "Java",
+    icon: "/stack/java.svg",
+    proficiency: "Intermediate",
+    percentage: 78,
+    description: "Developing enterprise-level applications with Java.",
+  },
   // {
   //   name: "C#",
   //   icon: "/stack/csharp.svg",
@@ -91,7 +101,7 @@ export const skills: SkillType[] = [
     name: "Tailwind CSS",
     icon: "/stack/tailwind.svg",
     proficiency: "Advanced",
-    percentage: 88,
+    percentage: 84,
     description: "Building responsive and modern user interfaces with Tailwind CSS.",
   },
   {
@@ -164,20 +174,27 @@ export const skills: SkillType[] = [
     percentage: 77,
     description: "Cloud computing and data storage with Google Cloud Platform.",
   },
-  // {
-  //   name: "Azure",
-  //   icon: "/stack/Azure.svg",
-  //   proficiency: "Intermediate",
-  //   percentage: 67,
-  //   description: "Deploying and managing authentication and cloud applications with Microsoft Azure services.",
-  // },
   {
-    name: "MongoDB",
-    icon: "/stack/MongoDB.svg",
-    proficiency: "Intermediate",
-    percentage: 64,
-    description: "NoSQL database management with MongoDB.",
+    name: "Azure",
+    icon: "/stack/Azure.svg",
+    proficiency: "Advanced",
+    percentage: 89,
+    description: "Deploying and managing authentication and cloud applications with Microsoft Azure services.",
   },
+  {
+    name: "Kubernetes",
+    icon: "/stack/Kubernetes.svg",
+    proficiency: "Advanced",
+    percentage: 92,
+    description: "Orchestrating containerized workloads and services with Kubernetes.",
+  },
+  // {
+  //   name: "MongoDB",
+  //   icon: "/stack/MongoDB.svg",
+  //   proficiency: "Intermediate",
+  //   percentage: 64,
+  //   description: "NoSQL database management with MongoDB.",
+  // },
   {
     name: "MySQL",
     icon: "/stack/MySQL.svg",
@@ -192,13 +209,13 @@ export const skills: SkillType[] = [
     percentage: 78,
     description: "Advanced relational database management with PostgreSQL.",
   },
-  {
-    name: "Firebase",
-    icon: "/stack/Firebase.svg",
-    proficiency: "Intermediate",
-    percentage: 75,
-    description: "Building applications with Firebase Authentication, Firestore, and Cloud Functions.",
-  },
+  // {
+  //   name: "Firebase",
+  //   icon: "/stack/Firebase.svg",
+  //   proficiency: "Intermediate",
+  //   percentage: 75,
+  //   description: "Building applications with Firebase Authentication, Firestore, and Cloud Functions.",
+  // },
   {
     name: "Docker",
     icon: "/stack/Docker.svg",

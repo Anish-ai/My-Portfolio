@@ -1,57 +1,21 @@
 "use client"
 
-import { useState, useCallback, type MouseEvent } from "react"
-import { motion, useMotionValue, useMotionTemplate, AnimatePresence } from "framer-motion"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { experiences } from "@/data/experience"
 import { Briefcase, MapPin, Calendar, ChevronRight, Terminal } from "lucide-react"
-import { useColor } from "@/context/color-context"
-import { THEME_COLORS } from "@/lib/constants"
 
 export default function Experience() {
   const [expandedId, setExpandedId] = useState<number | null>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const { colorTheme } = useColor()
-  const themeColors = THEME_COLORS[colorTheme] || THEME_COLORS.cyber
-
-  const hexToRgba = (hex: string, alpha: number) => {
-    const r = parseInt(hex.slice(1, 3), 16)
-    const g = parseInt(hex.slice(3, 5), 16)
-    const b = parseInt(hex.slice(5, 7), 16)
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`
-  }
-
-  const handleMouseMove = useCallback(({ clientX, clientY }: MouseEvent) => {
-    const el = document.getElementById('experience')
-    if (!el) return
-    const { left, top } = el.getBoundingClientRect()
-    mouseX.set(clientX - left)
-    mouseY.set(clientY - top)
-  }, [mouseX, mouseY])
 
   return (
     <section
       id="experience"
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen py-20 w-full bg-background flex flex-col items-center justify-center overflow-hidden group/exp"
+      className="relative min-h-screen py-20 w-full flex flex-col items-center justify-center group/exp"
     >
       {/* Background Decor */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-[length:50px_50px]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background z-0" />
-
-      {/* Spotlight Effect */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-0 opacity-0 group-hover/exp:opacity-100 transition-opacity duration-300"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              ${hexToRgba(themeColors.primary, 0.1)},
-              transparent 80%
-            )
-          `
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-transparent z-0" />
 
       {/* Scanning Line */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -206,6 +170,22 @@ export default function Experience() {
                             <span className="text-[10px] font-mono text-primary/60 tracking-widest uppercase">
                               Operation Details
                             </span>
+                          </div>
+
+                          <div className="mb-4">
+                            <div className="mb-2 text-[10px] font-mono text-primary/60 tracking-widest uppercase">
+                              Tech Stack
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {exp.techStack.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="px-2 py-1 rounded-sm border border-primary/20 bg-primary/5 text-[10px] font-mono text-primary/80"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
                           </div>
 
                           <ul className="space-y-3">

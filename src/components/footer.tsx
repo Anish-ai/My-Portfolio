@@ -93,7 +93,7 @@ import GlitchText from "@/components/ui/glitch-text"
 
 export default function Footer() {
     return (
-        <footer id="footer" className="relative w-full overflow-hidden bg-background pt-20 pb-10">
+        <footer id="footer" className="relative w-full bg-background pt-20 pb-10">
             {/* 3D BACKGROUND CANVAS */}
             <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
                 <Canvas>
@@ -151,8 +151,9 @@ export default function Footer() {
                         <div className="lg:col-span-4 flex flex-col gap-4">
                             <h3 className="text-sm font-bold text-foreground mb-2 uppercase tracking-widest border-b border-border/30 pb-2 w-max">Coordinates</h3>
                             <GlitchText text="Home Base" href="#hero" />
-                            <GlitchText text="Project Logs" href="#projects" />
+                            <GlitchText text="Merit Log" href="#achievements" />
                             <GlitchText text="Mission Log" href="#experience" />
+                            <GlitchText text="Project Logs" href="#projects" />
                             <GlitchText text="Skill Database" href="#skills" />
                         </div>
 

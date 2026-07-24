@@ -193,7 +193,7 @@ export default function ProjectTunnel({ onSelect }: { onSelect: (index: number) 
     }, []);
 
     return (
-        <div ref={containerRef} className="h-[100vh] w-full relative overflow-hidden">
+        <div ref={containerRef} data-lenis-prevent className="h-[100vh] w-full relative overflow-hidden">
              {/* Canvas Container */}
              <div className="sticky top-0 h-screen w-full">
                 <Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>

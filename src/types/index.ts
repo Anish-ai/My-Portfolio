@@ -36,6 +36,7 @@ export type ExperienceType = {
   location: string
   period: string
   current?: boolean
+  techStack: string[]
   highlights: string[]
 }
 

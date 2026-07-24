@@ -58,8 +58,7 @@ export const projects: ProjectType[] = [
     },
     description:
       "A platform for IIT Patna students to share ideas and form teams. Features skill-based project matching, real-time messaging via WebSockets, Firebase OAuth authentication with role-based access, and an admin dashboard for project moderation.",
-    thumbnail: "/stack/collabnest.png",
-    status: "In Progress"
+    thumbnail: "/stack/collabnest.png"
   },
   {
     id: 6,

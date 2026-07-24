@@ -8,6 +8,19 @@ export const experiences: ExperienceType[] = [
     location: "Bengaluru, India",
     period: "June 2026 – Present",
     current: true,
+    techStack: [
+      "Java",
+      "Python",
+      "TypeScript",
+      "Azure",
+      "Kubernetes",
+      "SQL",
+      "PL/SQL",
+      "Oracle",
+      "T-SQL",
+      "pgvector",
+      "MySQL",
+    ],
     highlights: [
       "Building the Production Update Database Tool using Java, Python, and TypeScript on Azure and Kubernetes, scaling to support over 1,000 internal teams with automated SQL, PL/SQL, Oracle, and T-SQL query execution.",
       "Optimized system performance to efficiently parse 5,000+ complex queries in under 0.3 seconds, significantly accelerating internal database workflows.",
@@ -22,6 +35,7 @@ export const experiences: ExperienceType[] = [
     location: "Remote",
     period: "May 2026 – Present",
     current: true,
+    techStack: ["C++"],
     highlights: [
       "Led post-contest discussions for a large competitive programming community, recording and publishing 15+ live video breakdowns of complex algorithmic problem solutions.",
       "Demonstrated strong technical communication and organizational skills by translating advanced problem-solving techniques and data structures into highly accessible educational content for diverse audiences.",
