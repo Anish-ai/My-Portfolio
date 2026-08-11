@@ -64,8 +64,10 @@ export default function Achievements() {
                 <div className="flex items-start gap-4 p-5 pl-6">
                   {/* Metric Block */}
                   <div className="shrink-0 flex flex-col items-center">
-                    <div className={`w-16 h-16 rounded-lg border ${config.accent} flex flex-col items-center justify-center`}>
-                      <span className="text-lg font-black font-mono leading-none">{item.metric}</span>
+                    <div className={`w-16 h-16 md:w-20 md:h-20 rounded-lg border ${config.accent} flex items-center justify-center`}>
+                      <span className="text-[10px] md:text-lg font-black font-mono leading-tight text-center px-2 py-0.5 break-words whitespace-normal">
+                        {item.metric}
+                      </span>
                     </div>
                     <span className="text-[8px] font-mono text-muted-foreground mt-1.5 tracking-widest uppercase text-center leading-tight">
                       {item.metricLabel}
