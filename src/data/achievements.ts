@@ -65,4 +65,20 @@ export const achievements: AchievementType[] = [
     description: "Volatility Curve Prediction (Financial Time-Series). Secured 6th rank among 6,000+ submissions in a highly competitive quantitative finance and algorithmic problem-solving hackathon.",
     certificateLink: "https://drive.google.com/file/d/1Ow9GYPtyau1mIbVy9Oe04C-RBqGo7q0d/view?usp=sharing",
   },
+  {
+    id: 7,
+    title: "Flipkart Grid 8.0",
+    metric: "Semi",
+    metricLabel: "Finalist",
+    category: "hackathon",
+    description: "Semifinalist in Flipkart Grid 8.0 hackathon in 2026.",
+  },
+  {
+    id: 8,
+    title: "Amazon ML Summer School 2026",
+    metric: "Selected",
+    metricLabel: "Program",
+    category: "program",
+    description: "Selected for the prestigious Amazon ML Summer School 2026.",
+  },
 ]
